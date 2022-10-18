@@ -42,7 +42,6 @@ client.on("ready", () => {
     {
         rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), 
             {body: commands})
-        .then(() => console.log('Successfully updated commands for guild ' + guildId))
         .catch(console.error);
     }
 });
