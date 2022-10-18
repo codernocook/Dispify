@@ -28,7 +28,7 @@ module.exports = {
 		),
 	execute: async ({ client, interaction }) => {
         // Make sure the user is inside a voice channel
-		if (!interaction.member.voice.channel) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`You must join a voice channel to play a track!`).setColor(`Red`)] })
+		if (!interaction.member.voice.channel) return embed.setDescription(`You must join a voice channel to play a track!`).setColor("Red")
 
         // Create a play queue for the server
 		const queue = await client.player.createQueue(interaction.guild);
@@ -49,14 +49,12 @@ module.exports = {
 
             // finish if no tracks were found
             if (result.tracks.length === 0)
-                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`There are no result for the selected song.`).setColor(`Red`)] })
+                return embed.setDescription(`There are no results.`).setColor("Red")
 
             // Add the track to the queue
             const song = result.tracks[0]
             await queue.addTrack(song)
-            embed
-                .setDescription(`**[${song.title}](${song.url})** has been added to the Queue`)
-                .setColor("Green")
+            embed.setDescription(`**[${song.title}](${song.url})** has been added to the Queue!`).setColor("Green")
 
 		}
         else if (interaction.options.getSubcommand() === "playlist") {
@@ -69,14 +67,12 @@ module.exports = {
             })
 
             if (result.tracks.length === 0)
-                return interaction.reply(`No playlists found with ${url}`)
+                return embed.setDescription(`No playlist was found with ${url}!`).setColor("Red")
             
             // Add the tracks to the queue
             const playlist = result.playlist
             await queue.addTracks(result.tracks)
-            embed
-                .setDescription(`**${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue`)
-                .setColor("Green")
+            embed.setDescription(`**${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue!`).setColor("Green")
 
 		} 
         else if (interaction.options.getSubcommand() === "search") {
@@ -90,14 +86,12 @@ module.exports = {
 
             // finish if no tracks were found
             if (result.tracks.length === 0)
-                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Sorry, No result was found!`).setColor(`Red`)] })
+                return embed.setDescription(`Sorry, no result was found!`).setColor("Red")
             
             // Add the track to the queue
             const song = result.tracks[0]
             await queue.addTrack(song)
-            embed
-                .setDescription(`**[${song.title}](${song.url})** has been added to the Queue`)
-                .setColor("Green")
+            embed.setDescription(`**[${song.title}](${song.url})** has been added to the Queue`).setColor("Green")
 		}
 
         // Play the song
@@ -105,7 +99,7 @@ module.exports = {
         
         // Respond with the embed containing information about the player
         await interaction.reply({
-            embeds: [embed].catch(console.error)
+            embeds: [embed]
         })
 	},
 }
