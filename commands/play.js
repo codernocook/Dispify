@@ -105,7 +105,7 @@ module.exports = {
         
         // Respond with the embed containing information about the player
         await interaction.reply({
-            embeds: [embed]
+            embeds: [embed].catch(console.error)
         })
 	},
 }
