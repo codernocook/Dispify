@@ -12,7 +12,7 @@ module.exports = {
 
 		if (!queue)
 		{
-			await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`There no song in the queue bruh!`).setColor(`Red`)] })
+			await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`There no song in the queue!`).setColor(`Red`)] })
 			return;
 		}
 
