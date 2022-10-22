@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("Pong!"),
 	execute: async ({ client, interaction }) => {
         interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Pong! 0ms`).setColor(`Green`)] }).then(interactionget => {
-            const ping = interactionget.createdTimestamp - message.createdTimestamp;
+            const ping = interactionget.createdTimestamp - interactionget.createdTimestamp;
             interactionget.editReply({ embeds: [new EmbedBuilder().setDescription(`Pong! ${ping}ms`).setColor(`Green`)] })
         })
 	},
