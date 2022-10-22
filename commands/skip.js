@@ -26,7 +26,7 @@ module.exports = {
         // Return an embed to the user saying the song has been skipped
         await interaction.reply({
             embeds: [
-                new MessageEmbed()
+                new EmbedBuilder()
                     .setDescription(`Skipped ${currentSong.title}!`)
                     .setColor("Green")
             ]
