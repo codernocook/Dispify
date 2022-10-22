@@ -62,15 +62,6 @@ client.on("ready", () => {
     }
 });
 
-async function wait(secsdelay) {
-    return new Promise((resolve) => setTimeout(resolve, secsdelay * 1000));
-}
-
-for (let i = 1; i !== 20; i += 2) {
-    await wait(5)
-    CommandChecker()
-}
-
 client.on("interactionCreate", async interaction => {
     if(!interaction.isCommand()) return;
 
