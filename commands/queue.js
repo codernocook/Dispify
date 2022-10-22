@@ -4,7 +4,7 @@ const { MessageEmbed } = require("discord.js")
 module.exports = {
     data: new SlashCommandBuilder()
         .setName("queue")
-        .setDescription("shows first 10 songs in the queue"),
+        .setDescription("Shows first 10 songs in the queue!"),
 
     execute: async ({ client, interaction }) => {
         const queue = client.player.getQueue(interaction.guildId)
@@ -12,7 +12,7 @@ module.exports = {
         // check if there are songs in the queue
         if (!queue || !queue.playing)
         {
-            await interaction.reply("There are no songs in the queue");
+            await interaction.reply("There are no songs in the queue!");
             return;
         }
 
