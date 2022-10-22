@@ -5,6 +5,7 @@ const { Player } = require("discord-player")
 
 const fs = require('fs');
 const path = require('path');
+const { resolve } = require('path');
 
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates] });
@@ -32,6 +33,20 @@ client.player = new Player(client, {
     }
 })
 
+function CommandChecker() {
+    const guild_ids = client.guilds.cache.map(guild => guild.id);
+
+
+    const rest = new REST({version: '9'}).setToken(process.env.TOKEN);
+    for (const guildId of guild_ids)
+    {
+        rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), 
+            {body: commands})
+        .then(() => console.log('Successfully updated commands for guild ' + guildId))
+        .catch(console.error);
+    }
+}
+
 client.on("ready", () => {
     // Get all ids of the servers
     const guild_ids = client.guilds.cache.map(guild => guild.id);
@@ -42,9 +57,19 @@ client.on("ready", () => {
     {
         rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), 
             {body: commands})
+        .then(() => console.log('Successfully updated commands for guild ' + guildId))
         .catch(console.error);
     }
 });
+
+async function wait(secsdelay) {
+    return new Promise((resolve) => setTimeout(resolve, secsdelay * 1000));
+}
+
+for (let i = 1; i !== 20; i += 2) {
+    await wait(5)
+    CommandChecker()
+}
 
 client.on("interactionCreate", async interaction => {
     if(!interaction.isCommand()) return;
@@ -61,6 +86,7 @@ client.on("interactionCreate", async interaction => {
         console.error(error);
         //await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Something went wrong with this command!`).setColor(`Red`)] })
     }
+    CommandChecker();
 });
 
 client.login(process.env.TOKEN);
