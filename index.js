@@ -1,6 +1,6 @@
 const {REST} = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { Client, Intents, Collection, GatewayIntentBits, EmbedBuilder } = require('discord.js');
+const { Client, Collection, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
 const { Player } = require("discord-player")
 
 const fs = require('fs');
@@ -36,7 +36,6 @@ client.player = new Player(client, {
 function CommandChecker() {
     const guild_ids = client.guilds.cache.map(guild => guild.id);
 
-
     const rest = new REST({version: '9'}).setToken(process.env.TOKEN);
     for (const guildId of guild_ids)
     {
@@ -47,9 +46,9 @@ function CommandChecker() {
 }
 
 client.on("ready", () => {
+    client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
     // Get all ids of the servers
     const guild_ids = client.guilds.cache.map(guild => guild.id);
-
 
     const rest = new REST({version: '9'}).setToken(process.env.TOKEN);
     for (const guildId of guild_ids)
