@@ -19,6 +19,6 @@ module.exports = {
         // Deletes all the songs from the queue and exits the channel
 		queue.destroy();
 
-        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`NOOOOOOO, i love you why you kick me!`).setColor(`Green`)] })
+        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Left channel!`).setColor(`Green`)] })
 	},
 }
