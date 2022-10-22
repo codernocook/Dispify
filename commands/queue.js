@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const { MessageEmbed } = require("discord.js")
+const { EmbedBuilder } = require("discord.js")
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -23,16 +23,8 @@ module.exports = {
 
         // Get the current song
         const currentSong = queue.current
-
-        await interaction.reply({
-            embeds: [
-                new MessageEmbed()
-                    .setDescription(`**Currently Playing**\n` + 
-                        (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") +
-                        `\n\n**Queue**\n${queueString}`
-                    )
-                    .setThumbnail(currentSong.setThumbnail)
-            ]
-        })
+        interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + 
+        (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") +
+        `\n\n**Queue**\n${queueString}`).setColor(`Green`)] })
     }
 }
