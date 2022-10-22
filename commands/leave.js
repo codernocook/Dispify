@@ -3,8 +3,8 @@ const { EmbedBuilder } = require("discord.js")
 
 module.exports = {
 	data: new SlashCommandBuilder()
-        .setName("exit")
-        .setDescription("Kick the bot from the channel."),
+        .setName("leave")
+        .setDescription("Make the bot leave current voice channel."),
 	execute: async ({ client, interaction }) => {
 
         // Get the current queue
