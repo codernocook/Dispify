@@ -61,7 +61,7 @@ client.on("interactionCreate", async interaction => {
     catch(error)
     {
         console.error(error);
-        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Something went wrong, call <@816313780169342976> to fix this error!`).setColor(`Red`)] })
+        //await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Something went wrong, call <@816313780169342976> to fix this error!`).setColor(`Red`)] })
     }
 });
 
