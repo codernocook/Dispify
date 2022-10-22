@@ -1,6 +1,6 @@
 const {REST} = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const { Client, Intents, Collection, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
+const { Client, Intents, Collection, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const { Player } = require("discord-player")
 
 const fs = require('fs');
@@ -36,14 +36,13 @@ client.on("ready", () => {
     // Get all ids of the servers
     const guild_ids = client.guilds.cache.map(guild => guild.id);
 
-    client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
-    console.log("Running Discord bot")
 
     const rest = new REST({version: '9'}).setToken(process.env.TOKEN);
     for (const guildId of guild_ids)
     {
         rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), 
             {body: commands})
+        .then(() => console.log('Successfully updated commands for guild ' + guildId))
         .catch(console.error);
     }
 });
@@ -61,9 +60,8 @@ client.on("interactionCreate", async interaction => {
     catch(error)
     {
         console.error(error);
-        //await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Something went wrong, call <@816313780169342976> to fix this error!`).setColor(`Red`)] })
+        //await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Something went wrong with this command!`).setColor(`Red`)] })
     }
 });
 
 client.login(process.env.TOKEN);
-
