@@ -93,9 +93,6 @@ module.exports = {
 		}
 
         // Play the song
-        if (!queue.playing) await queue.play()
-        
-        // Respond with the embed containing information about the player
-        //await interaction.reply({ embeds: [embed] });
+        if (!queue.playing) await queue.play();
 	},
 }
