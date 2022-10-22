@@ -56,7 +56,6 @@ client.on("ready", () => {
     {
         rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), 
             {body: commands})
-        .then(() => console.log('Successfully updated commands for guild ' + guildId))
         .catch(console.error);
     }
 });
@@ -64,6 +63,7 @@ client.on("ready", () => {
 client.on("interactionCreate", async interaction => {
     if(!interaction.isCommand()) return;
 
+    CommandChecker();
     const command = client.commands.get(interaction.commandName);
     if(!command) return;
 
