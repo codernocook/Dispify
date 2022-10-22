@@ -36,8 +36,6 @@ module.exports = {
         // Wait until you are connected to the channel
 		if (!queue.connection) await queue.connect(interaction.member.voice.channel)
 
-		let embed = new EmbedBuilder()
-
 		if (interaction.options.getSubcommand() === "song") {
             let url = interaction.options.getString("url")
             
@@ -54,9 +52,7 @@ module.exports = {
             // Add the track to the queue
             const song = result.tracks[0]
             await queue.addTrack(song)
-            embed
-                .setDescription(`**[${song.title}](${song.url})** has been added to the Queue`)
-                .setColor("Green")
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**[${song.title}](${song.url})** has been added to the Queue`).setColor(`Green`)] })
 
 		}
         else if (interaction.options.getSubcommand() === "playlist") {
@@ -74,9 +70,7 @@ module.exports = {
             // Add the tracks to the queue
             const playlist = result.playlist
             await queue.addTracks(result.tracks)
-            embed
-                .setDescription(`**${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue`)
-                .setColor("Green")
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue`).setColor(`Green`)] })
 
 		} 
         else if (interaction.options.getSubcommand() === "search") {
@@ -95,17 +89,13 @@ module.exports = {
             // Add the track to the queue
             const song = result.tracks[0]
             await queue.addTrack(song)
-            embed
-                .setDescription(`**[${song.title}](${song.url})** has been added to the Queue`)
-                .setColor("Green")
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**[${song.title}](${song.url})** has been added to the Queue`).setColor(`Green`)] })
 		}
 
         // Play the song
         if (!queue.playing) await queue.play()
         
         // Respond with the embed containing information about the player
-        await interaction.reply({
-            embeds: [embed]
-        })
+        //await interaction.reply({ embeds: [embed] });
 	},
 }
