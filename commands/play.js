@@ -48,6 +48,7 @@ module.exports = {
             //Check if wrong type of result spam error
             if (!url) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Missing url option.`).setColor(`Red`)] });
             if (!result) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
+            if (result === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
 
             // finish if no tracks were found
             if (result.tracks.length === 0)
@@ -71,6 +72,7 @@ module.exports = {
             //Check if wrong type of result spam error
             if (!url) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Missing url option.`).setColor(`Red`)] });
             if (!result) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
+            if (result === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
 
             if (result.tracks.length === 0)
                 return interaction.reply(`No playlists found with ${url}`)
@@ -93,6 +95,7 @@ module.exports = {
             //Check if wrong type of result spam error
             if (!url) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Missing url option.`).setColor(`Red`)] });
             if (!result) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
+            if (result === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
 
             // finish if no tracks were found
             if (result.tracks.length === 0)
