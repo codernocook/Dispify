@@ -44,6 +44,10 @@ module.exports = {
                 requestedBy: interaction.user,
                 searchEngine: QueryType.SPOTIFY_SONG
             })
+	    
+            //Check if wrong type of result spam error
+            if (!url) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Missing url option.`).setColor(`Red`)] });
+            if (!result) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
 
             // finish if no tracks were found
             if (result.tracks.length === 0)
@@ -64,6 +68,10 @@ module.exports = {
                 searchEngine: QueryType.SPOTIFY_PLAYLIST
             })
 
+            //Check if wrong type of result spam error
+            if (!url) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Missing url option.`).setColor(`Red`)] });
+            if (!result) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
+
             if (result.tracks.length === 0)
                 return interaction.reply(`No playlists found with ${url}`)
             
@@ -81,6 +89,10 @@ module.exports = {
                 requestedBy: interaction.user,
                 searchEngine: QueryType.AUTO
             })
+
+            //Check if wrong type of result spam error
+            if (!url) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Missing url option.`).setColor(`Red`)] });
+            if (!result) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
 
             // finish if no tracks were found
             if (result.tracks.length === 0)
