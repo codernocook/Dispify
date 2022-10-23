@@ -12,7 +12,7 @@ module.exports = {
 
 		if (!queue)
 		{
-			await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`There no song in the queue!`).setColor(`Red`)] })
+			await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033601680387887125> There no song in the queue!`).setColor(`Red`)] })
 			return;
 		}
 
