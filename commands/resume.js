@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
-const { EmbedBuilder } = require("discord.js")
+const { MessageEmbed } = require("discord.js")
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -12,13 +12,13 @@ module.exports = {
         // Check if the queue is empty
 		if (!queue)
         {
-            await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`There are no song in the queue!`).setColor(`Red`)] })
+            await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033601680387887125> There are no song in the queue!`).setColor(`Red`)] })
             return;
         }
 
         // Pause the current song
 		queue.setPaused(false);
 
-        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Player has been resumed`).setColor(`Green`)] })
+        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033601653749862491> Player has been resumed!`).setColor(`Green`)] })
 	},
 }
