@@ -12,7 +12,7 @@ module.exports = {
         // check if there are songs in the queue
         if (!queue || !queue.playing)
         {
-            await interaction.reply("There are no songs in the queue!");
+            await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033601680387887125> There are no songs in the queue!`).setColor(`Red`)] });
             return;
         }
 
