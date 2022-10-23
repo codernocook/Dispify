@@ -28,7 +28,7 @@ module.exports = {
 		),
 	execute: async ({ client, interaction }) => {
         // Make sure the user is inside a voice channel
-		if (!interaction.member.voice.channel) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033601680387887125> You must join a voice channel to play a track!`).setColor(`Red`)] })
+		if (!interaction.member.voice.channel) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> You must join a voice channel to play a track!`).setColor(`Red`)] })
 
         // Create a play queue for the server
 		const queue = await client.player.createQueue(interaction.guild);
@@ -47,12 +47,12 @@ module.exports = {
 
             // finish if no tracks were found
             if (result.tracks.length === 0)
-                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033601680387887125> There are no result for the selected song.`).setColor(`Red`)] })
+                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] })
 
             // Add the track to the queue
             const song = result.tracks[0]
             await queue.addTrack(song)
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033601653749862491> **[${song.title}](${song.url})** has been added to the Queue`).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue`).setColor(`Green`)] })
 
 		}
         else if (interaction.options.getSubcommand() === "playlist") {
@@ -70,7 +70,7 @@ module.exports = {
             // Add the tracks to the queue
             const playlist = result.playlist
             await queue.addTracks(result.tracks)
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033601653749862491> **${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue`).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue`).setColor(`Green`)] })
 
 		} 
         else if (interaction.options.getSubcommand() === "search") {
@@ -84,12 +84,12 @@ module.exports = {
 
             // finish if no tracks were found
             if (result.tracks.length === 0)
-                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033601680387887125> Sorry, No result was found!`).setColor(`Red`)] })
+                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Sorry, No result was found!`).setColor(`Red`)] })
             
             // Add the track to the queue
             const song = result.tracks[0]
             await queue.addTrack(song)
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033601653749862491> **[${song.title}](${song.url})** has been added to the Queue`).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue`).setColor(`Green`)] })
 		}
 
         // Play the song
