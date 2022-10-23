@@ -18,13 +18,11 @@ module.exports = {
 
         // Get the first 10 songs in the queue
         const queueString = queue.tracks.slice(0, 10).map((song, i) => {
-            return `${i}) [${song.duration}]\` ${song.title} - <@${song.requestedBy.id}>`
+            return `${i}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
         }).join("\n")
 
         // Get the current song
         const currentSong = queue.current
-        interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + 
-        (currentSong ? `\`[${currentSong.duration}]\` ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") +
-        `\n\n**Queue**\n${queueString}`).setColor(`Green`)] })
+        interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setColor(`Green`)] })
     }
 }
