@@ -37,12 +37,9 @@ module.exports = {
             if (!position) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Invaild Position, please type vaild position.`).setColor(`Red`)] });
             if (!Number(position)) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Invaild Position, please type vaild position.`).setColor(`Red`)] });
             if ((Number(position)) > queueSongNumber) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Invaild Position, please type vaild position.`).setColor(`Red`)] });
-            let doneskiploop = false;
 
-            for (let loopskip = 0; loopskip < Number(position); loopskip++) {
-                setTimeout(() => {
-                    queue.skip()
-                }, 100);
+            for (let i = 0; i < Number(position); i++) {
+                queue.skip()
             }
 
             interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped **[${currentSong.title}](${currentSong.url})**!`).setColor(`Green`)] })
