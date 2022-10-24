@@ -75,7 +75,7 @@ module.exports = {
             if (result === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
 
             if (result.tracks.length === 0)
-                return interaction.reply(`No playlists found with ${url}`)
+                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> No playlist found with **[${playlist.title}](${playlist.url})**`).setColor(`Red`)] })
             
             // Add the tracks to the queue
             const playlist = result.playlist
