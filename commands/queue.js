@@ -13,9 +13,9 @@ module.exports = {
         .addSubcommand(subcommand =>
 			subcommand
 				.setName("page")
-				.setDescription("Turn to selected page in the list.")
+				.setDescription("Turn to selected page in the queue.")
 				.addStringOption(option =>
-					option.setName("page").setDescription("Number of page.").setRequired(true)
+					option.setName("position").setDescription("Position of page.").setRequired(true)
 				)
 		),
     execute: async ({ client, interaction }) => {
@@ -49,8 +49,8 @@ module.exports = {
             }
     
             // Get the first 10 songs in the queue
-            if (!Number(interaction.options.getString("page"))) return;
-            const queueString = queue.tracks.slice(Number(interaction.options.getString("page")) * 10, (Number(interaction.options.getString("page")) * 10) + 10).map((song, i) => {
+            if (!Number(interaction.options.getString("position"))) return;
+            const queueString = queue.tracks.slice(Number(interaction.options.getString("position")) * 10, (Number(interaction.options.getString("position")) * 10) + 10).map((song, i) => {
                 return `${i}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
             }).join("\n")
     
