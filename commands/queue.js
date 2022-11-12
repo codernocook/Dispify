@@ -8,15 +8,12 @@ module.exports = {
         .addSubcommand(subcommand =>
 			subcommand
 				.setName("list")
-				.setDescription("Shows first 10 songs in the queue!")
-				.addStringOption(option =>
-					option.setName("pages").setDescription("search keywords").setRequired(false)
-				)
+				.setDescription("Shows first 10 songs in the queue.")
 		)
         .addSubcommand(subcommand =>
 			subcommand
 				.setName("page")
-				.setDescription("Go to page in the list.")
+				.setDescription("Turn to selected page in the list.")
 				.addStringOption(option =>
 					option.setName("page").setDescription("Number of page.").setRequired(true)
 				)
@@ -52,8 +49,8 @@ module.exports = {
             }
     
             // Get the first 10 songs in the queue
-            if (!Number(interaction.options.getString("pages"))) return;
-            const queueString = queue.tracks.slice(Number(interaction.options.getString("pages")) * 10, (Number(interaction.options.getString("pages")) * 10) + 10).map((song, i) => {
+            if (!Number(interaction.options.getString("page"))) return;
+            const queueString = queue.tracks.slice(Number(interaction.options.getString("page")) * 10, (Number(interaction.options.getString("page")) * 10) + 10).map((song, i) => {
                 return `${i}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
             }).join("\n")
     
