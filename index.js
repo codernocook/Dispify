@@ -8,7 +8,7 @@ const path = require('path');
 const { resolve } = require('path');
 
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]});
 
 // List of all commands
 const commands = [];
@@ -33,24 +33,12 @@ client.player = new Player(client, {
     }
 })
 
-function CommandChecker() {
-    const guild_ids = client.guilds.cache.map(guild => guild.id);
-
-    const rest = new REST({version: '9'}).setToken(process.env.TOKEN);
-    for (const guildId of guild_ids)
-    {
-        rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), 
-            {body: commands})
-        .catch(console.error);
-    }
-}
-
-client.on("ready", () => {
+client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
     // Get all ids of the servers
     const guild_ids = client.guilds.cache.map(guild => guild.id);
 
-    const rest = new REST({version: '9'}).setToken(process.env.TOKEN);
+    const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
     for (const guildId of guild_ids)
     {
         rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), 
@@ -62,7 +50,6 @@ client.on("ready", () => {
 client.on("interactionCreate", async interaction => {
     if(!interaction.isCommand()) return;
 
-    CommandChecker();
     const command = client.commands.get(interaction.commandName);
     if(!command) return;
 
@@ -75,7 +62,6 @@ client.on("interactionCreate", async interaction => {
         console.error(error);
         //await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Something went wrong with this command!`).setColor(`Red`)] })
     }
-    CommandChecker();
 });
 
 client.login(process.env.TOKEN);
