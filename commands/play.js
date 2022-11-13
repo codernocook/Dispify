@@ -11,7 +11,7 @@ module.exports = {
 				.setName("search")
 				.setDescription("Searches for a song and plays it.")
 				.addStringOption(option =>
-					option.setName("searchterms").setDescription("search keywords").setRequired(true)
+					option.setName("searchterms").setDescription("Search keywords.").setRequired(true)
 				)
 		)
         .addSubcommand(subcommand =>
@@ -19,7 +19,7 @@ module.exports = {
 				.setName("url")
 				.setDescription("Play a song or playlist with url from Spotify.")
 				.addStringOption(option =>
-					option.setName("searchterms").setDescription("search keywords").setRequired(true)
+					option.setName("url").setDescription("Put Spotify url here.").setRequired(true)
 				)
 		),
 	execute: async ({ client, interaction }) => {
@@ -105,7 +105,7 @@ module.exports = {
             await queue.addTrack(song)
             interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue`).setColor(`Green`)] })
 		}
-        
+
         // Play the song
         if (!queue.playing) await queue.play();
 	},
