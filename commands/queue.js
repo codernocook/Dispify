@@ -36,7 +36,7 @@ module.exports = {
     
             // Get the current song
             const currentSong = queue.current
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setDescription("Page: 1").setColor(`Green`)] })
         }
         else if (interaction.options.getSubcommand() === "page") {
             const queue = client.player.getQueue(interaction.guildId)
@@ -51,7 +51,7 @@ module.exports = {
             // Get the first 10 songs in the queue
             if (!Number(interaction.options.getString("position"))) return;
             const queueString = queue.tracks.slice(Number(interaction.options.getString("position")) * 10, (Number(interaction.options.getString("position")) * 10) + 10).map((song, i) => {
-                return `${i}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
+                return `${i + (Number(interaction.options.getString("position")) * 10)}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
             }).join("\n")
     
             // Get the current song
