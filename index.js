@@ -35,12 +35,19 @@ client.player = new Player(client, {
 
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
-    // Get all ids of the servers
+    // Deploy when discord bot online
     const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
     rest.put(Routes.applicationCommand(process.env.CLIENT_ID), 
         {body: commands})
         .catch(console.error);
 });
+
+client.on("guildCreate", async(guild) => {
+    const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
+    rest.put(Routes.applicationGuildCommand(process.env.CLIENT_ID, guild.id), 
+        {body: commands})
+        .catch(console.error);
+})
 
 client.on("interactionCreate", async interaction => {
     if(!interaction.isCommand()) return;
