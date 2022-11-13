@@ -57,7 +57,7 @@ module.exports = {
             // Add the track to the queue
             const song = result.tracks[0]
             await queue.addTrack(song)
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue`).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue.`).setColor(`Green`)] })
 
 		}
         else if (interaction.options.getSubcommand() === "playlist") {
@@ -70,12 +70,11 @@ module.exports = {
             })
 
             //Check if wrong type of result spam error
-            if (!url) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Missing url option.`).setColor(`Red`)] });
-            if (!result) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
-            if (result === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
+            if (!url) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> No playlist found with **[${playlist.title}](${playlist.url})**`).setColor(`Red`)] })
+            if (!result) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> No playlist found with **[${playlist.title}](${playlist.url})**`).setColor(`Red`)] })
+            if (result === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> No playlist found with **[${playlist.title}](${playlist.url})**`).setColor(`Red`)] })
 
-            if (result.tracks.length === 0)
-                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> No playlist found with **[${playlist.title}](${playlist.url})**`).setColor(`Red`)] })
+            if (result.tracks.length === 0) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> No playlist found with **[${playlist.title}](${playlist.url})**`).setColor(`Red`)] })
             
             // Add the tracks to the queue
             const playlist = result.playlist
@@ -84,7 +83,6 @@ module.exports = {
 
 		} 
         else if (interaction.options.getSubcommand() === "search") {
-
             // Search for the song using the discord-player
             let url = interaction.options.getString("searchterms")
             const result = await client.player.search(url, {
@@ -98,13 +96,12 @@ module.exports = {
             if (result === undefined) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
 
             // finish if no tracks were found
-            if (result.tracks.length === 0)
-                return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Sorry, No result was found!`).setColor(`Red`)] })
+            if (result.tracks.length === 0) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Sorry, No result was found!`).setColor(`Red`)] })
             
             // Add the track to the queue
             const song = result.tracks[0]
             await queue.addTrack(song)
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue`).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue.`).setColor(`Green`)] })
 		}
 
         // Play the song
