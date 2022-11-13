@@ -58,10 +58,8 @@ module.exports = {
             const song = result.tracks[0]
             await queue.addTrack(song)
             interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue.`).setColor(`Green`)] })
-
 		}
         else if (interaction.options.getSubcommand() === "playlist") {
-
             // Search for the playlist using the discord-player
             let url = interaction.options.getString("url")
             const result = await client.player.search(url, {
@@ -78,9 +76,19 @@ module.exports = {
             
             // Add the tracks to the queue
             const playlist = result.playlist
-            await queue.addTracks(result.tracks)
+            // Over Playlist Reject
+            if (result.tracks.length >= 500) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Playlist too long, Dispify can't process.`).setColor(`Red`)] })
+            // Anti Playlist Crash
+            if (result.tracks.length < 50) {
+                await queue.addTracks(result.tracks)
+            }else {
+                for (const queuecooldown of result.tracks.length) {
+                    setTimeout(() => {
+                        queue.addTracks(result[queuecooldown]);
+                    }, 500);
+                }
+            }
             interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue`).setColor(`Green`)] })
-
 		} 
         else if (interaction.options.getSubcommand() === "search") {
             // Search for the song using the discord-player
