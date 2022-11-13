@@ -50,13 +50,9 @@ module.exports = {
     
             // Get the first 10 songs in the queue
             if (!Number(interaction.options.getString("position"))) return;
-            const queueString = queue.tracks.slice(Number(interaction.options.getString("position")) * 10, (Number(interaction.options.getString("position")) * 10) + 10).map((song, i) => {
-                if (Number(interaction.options.getString("position")) > 1) {
-                    return `${i + (Number(interaction.options.getString("position") - 1) * 10)}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
-                }else {
-                    return `${i}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
-                }
-            }).join("\n")
+            const queueString = queue.tracks.slice(((Number(interaction.options.getString("position")) - 1) * 10), ((Number(interaction.options.getString("position")) - 1) * 10) + 10).map((song, i) => {
+                return `${i + ((Number(interaction.options.getString("position")) - 1) * 10)}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
+            })
     
             // Get the current song
             const currentSong = queue.current
