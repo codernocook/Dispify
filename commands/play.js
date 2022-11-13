@@ -83,11 +83,13 @@ module.exports = {
                 await queue.addTracks(result.tracks)
             }else {
                 const resultmap = result.tracks.map((song, i) => {
-                    return Number(i)
+                    return i;
                 })
-                for (let playlistsplitsong; playlistsplitsong < resultmap; playlistsplitsong++) {
-                    if (!Number(playlistsplitsong)) return;
-                    queue.addTrack(result.tracks[Number(playlistsplitsong)]);
+                for (let playlistsplitsong = 0; playlistsplitsong < resultmap; playlistsplitsong++) {
+                    setTimeout(() => {
+                        if (!Number(playlistsplitsong)) return;
+                        queue.addTrack(result.tracks[Number(playlistsplitsong)]);
+                    }, 1);
                 }
             }
 
