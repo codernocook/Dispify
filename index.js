@@ -35,16 +35,10 @@ client.player = new Player(client, {
 
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
-    // Get all ids of the servers
-    const guild_ids = client.guilds.cache.map(guild => guild.id);
-
-    const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
-    for (const guildId of guild_ids)
-    {
-        rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), 
-            {body: commands})
-        .catch(console.error);
-    }
+    // Add command to every server
+    await client.bulkEditCommands([{
+        commands
+    }])
 });
 
 client.on("interactionCreate", async interaction => {
