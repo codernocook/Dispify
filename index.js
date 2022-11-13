@@ -36,9 +36,7 @@ client.player = new Player(client, {
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
     // Add command to every server
-    await client.bulkEditCommands([{
-        commands
-    }])
+    await client.bulkEditCommands([commands])
 });
 
 client.on("interactionCreate", async interaction => {
