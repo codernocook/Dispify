@@ -52,7 +52,7 @@ module.exports = {
             if (!Number(interaction.options.getString("position"))) return;
             const queueString = queue.tracks.slice(((Number(interaction.options.getString("position")) - 1) * 10), ((Number(interaction.options.getString("position")) - 1) * 10) + 10).map((song, i) => {
                 return `${i + ((Number(interaction.options.getString("position")) - 1) * 10)}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
-            })
+            }).join("\n")
     
             // Get the current song
             const currentSong = queue.current
