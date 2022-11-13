@@ -84,7 +84,7 @@ module.exports = {
             }else {
                 for (const queuecooldown of result.tracks.length) {
                     setTimeout(() => {
-                        queue.addTracks(result[queuecooldown]);
+                        queue.addTracks(result.tracks[queuecooldown]);
                     }, 500);
                 }
             }
