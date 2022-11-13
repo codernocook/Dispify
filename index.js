@@ -6,7 +6,7 @@ const { Player } = require("discord-player")
 const fs = require('fs');
 const path = require('path');
 const { resolve } = require('path');
-
+const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]});
 
@@ -36,17 +36,11 @@ client.player = new Player(client, {
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
     // Deploy when discord bot online
-    const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
-    rest.put(Routes.applicationCommand(process.env.CLIENT_ID), 
-        {body: commands})
-        .catch(console.error);
+    rest.put(Routes.applicationCommand(process.env.CLIENT_ID), {body: commands}).catch(console.error);
 });
 
-client.on("guildCreate", async(guild) => {
-    const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
-    rest.put(Routes.applicationGuildCommand(process.env.CLIENT_ID, guild.id), 
-        {body: commands})
-        .catch(console.error);
+client.on("guildCreate", async (guild) => {
+    rest.put(Routes.applicationGuildCommand(process.env.CLIENT_ID, guild.id), {body: commands}).catch(console.error);
 })
 
 client.on("interactionCreate", async interaction => {
@@ -55,12 +49,10 @@ client.on("interactionCreate", async interaction => {
     const command = client.commands.get(interaction.commandName);
     if(!command) return;
 
-    try
-    {
+    try {
         await command.execute({client, interaction});
     }
-    catch(error)
-    {
+    catch(error) {
         console.error(error);
         //await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Something went wrong with this command!`).setColor(`Red`)] })
     }
