@@ -35,12 +35,16 @@ client.player = new Player(client, {
 
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
-    // Deploy when discord bot online
-    rest.put(Routes.applicationCommand(process.env.CLIENT_ID), {body: commands}).catch(console.error);
+    // Deploy when discord bot run
+    const guild_ids = client.guilds.cache.map(guild => guild.id);
+
+    for (const guildId of guild_ids) {
+        rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), {body: commands}).catch(console.error);
+    }
 });
 
-client.on("guildCreate", async (guild) => {
-    rest.put(Routes.applicationGuildCommand(process.env.CLIENT_ID, guild.id), {body: commands}).catch(console.error);
+client.on("guildCreate", async (guildcreate) => {
+    rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildcreate.id), {body: commands}).catch(console.error);
 })
 
 client.on("interactionCreate", async interaction => {
