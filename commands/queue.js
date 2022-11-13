@@ -36,7 +36,7 @@ module.exports = {
     
             // Get the current song
             const currentSong = queue.current
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setDescription("Page: 1").setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter("Page: 1").setColor(`Green`)] })
         }
         else if (interaction.options.getSubcommand() === "page") {
             const queue = client.player.getQueue(interaction.guildId)
@@ -56,7 +56,7 @@ module.exports = {
     
             // Get the current song
             const currentSong = queue.current
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter(`Page: ${Number(interaction.options.getString("position"))}`).setColor(`Green`)] })
         }
     }
 }
