@@ -1,5 +1,4 @@
 const {REST} = require('@discordjs/rest');
-const { CommandClient } = require('eris')
 const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
 const { Player } = require("discord-player")
@@ -10,7 +9,6 @@ const { resolve } = require('path');
 
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]});
-const clientrequire = new CommandClient(`Bot ${token}`, { intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates], maxShards: 'auto',restMode: true })
 
 // List of all commands
 const commands = [];
@@ -38,7 +36,15 @@ client.player = new Player(client, {
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
     // Get all ids of the servers
-    await clientrequire.bulkEditCommands([commands])
+    const guild_ids = client.guilds.cache.map(guild => guild.id);
+
+    const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
+    for (const guildId of guild_ids)
+    {
+        rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), 
+            {body: commands})
+        .catch(console.error);
+    }
 });
 
 client.on("interactionCreate", async interaction => {
