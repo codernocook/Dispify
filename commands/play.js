@@ -78,14 +78,9 @@ module.exports = {
             const playlist = result.playlist
             // Over Playlist Reject
             if (result.tracks.length >= 1000) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Playlist too long, Dispify can't process.`).setColor(`Red`)] })
-            // Anti Playlist Crash
-            if (result.tracks.length < 50) {
-                await queue.addTracks(result.tracks)
-            }else {
-                setTimeout(() => {
-                    queue.addTracks(result.tracks);
-                }, 500);
-            }
+            // Add tracks to playlist
+            await queue.addTracks(result.tracks)
+
             interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue`).setColor(`Green`)] })
 		} 
         else if (interaction.options.getSubcommand() === "search") {
