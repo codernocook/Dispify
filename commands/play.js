@@ -16,13 +16,12 @@ module.exports = {
 		let url = interaction.options.getString("link-or-query")
 
         // Start playling
-        client.distube.play(interaction.member.voice.channel, url, {
+        const song = client.distube.play(interaction.member.voice.channel, url, {
             member: interaction.member,
             textChannel: interaction.channel,
             interaction
         })
-        const queuearray = client.distube.getQueue(interaction.guild)
-        const song = queuearray.songs[0]
+
         // Reply success message
         interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.name}](${song.url})** has been added to the Queue.`).setColor(`Green`)] })
 	},
