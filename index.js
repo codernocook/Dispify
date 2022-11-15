@@ -1,11 +1,12 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
-const { Distube } = require("distube");
+const { DisTube } = require("distube");
 
 //Distube plugin (need)!
 const { SpotifyPlugin } = require('@distube/spotify');
 const { SoundCloudPlugin } = require('@distube/soundcloud');
+const { YtDlpPlugin } = require('@distube/yt-dlp');
 
 const fs = require('fs');
 const path = require('path');
@@ -40,6 +41,7 @@ client.distube = new DisTube(client, {
         emitEventsAfterFetching: true
       }),
       new SoundCloudPlugin(),
+      new YtDlpPlugin()
     ]
   })
 
