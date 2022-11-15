@@ -19,7 +19,7 @@ module.exports = {
         client.distube.play(message.member.voice.channel, url, {
             member: interaction.member,
             textChannel: interaction.channel,
-            message
+            interaction
         })
         // Reply success message
         interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue.`).setColor(`Green`)] })
