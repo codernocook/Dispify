@@ -16,7 +16,7 @@ module.exports = {
 		let url = interaction.options.getString("link-or-query")
 
         // Start playling
-        client.distube.play(message.member.voice.channel, url, {
+        client.distube.play(interaction.member.voice.channel, url, {
             member: interaction.member,
             textChannel: interaction.channel,
             interaction
