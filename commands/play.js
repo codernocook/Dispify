@@ -5,13 +5,16 @@ const { QueryType } = require("discord-player")
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("play")
-		.setDescription("Play a song from Spotify."),
+		.setDescription("Play a song from Spotify.")
+        .addStringOption(option =>
+            option.setName("link-or-query").setDescription("Get url or search term to play the song.").setRequired(true)
+        ),
 	execute: async ({ client, interaction }) => {
         // Make sure the user is inside a voice channel
 		if (!interaction.member.voice.channel) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> You must join a voice channel to play a track!`).setColor(`Red`)] })
 
         //get the url
-		let url = interaction.options.getString("url")
+		let url = interaction.options.getString("link-or-query")
 
         // Start playling
         client.distube.play(message.member.voice.channel, url, {
