@@ -19,7 +19,6 @@ module.exports = {
         const song = client.distube.play(interaction.member.voice.channel, url, {
             member: interaction.member,
             textChannel: interaction.channel,
-            interaction
         })
 
         // Reply success message
