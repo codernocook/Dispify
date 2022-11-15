@@ -21,7 +21,8 @@ module.exports = {
             textChannel: interaction.channel,
             interaction
         })
+        const song = client.distube.getQueue(interaction).songs[0]
         // Reply success message
-        interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue.`).setColor(`Green`)] })
+        interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.name}](${song.url})** has been added to the Queue.`).setColor(`Green`)] })
 	},
 }
