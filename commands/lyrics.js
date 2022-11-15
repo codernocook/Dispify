@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders")
 const { EmbedBuilder } = require("discord.js")
 const MusixMatchApi = "https://api.musixmatch.com/ws/1.1/"
-const lastrequesturl = "&page_size=3&page=1&s_track_rating=desc"
+const lastrequesturl = "&page_size=1&page=1&s_track_rating=desc"
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -18,7 +18,7 @@ module.exports = {
         Http.send();
 
         Http.onreadystatechange = (e) => {
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`${Http.responseText}`).setColor(`Green`)] }).catch(err => {message.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Can't get lyrics on MusixMatch.`).setColor(`Red`)] })})
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`${Http.responseText["body"]["tracklist"][0]}`).setColor(`Green`)] }).catch(err => {message.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Can't get lyrics on MusixMatch.`).setColor(`Red`)] })})
         }
     },
 }
