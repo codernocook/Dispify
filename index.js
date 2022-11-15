@@ -6,7 +6,6 @@ const { DisTube } = require("distube");
 //Distube plugin (need)!
 const { SpotifyPlugin } = require('@distube/spotify');
 const { SoundCloudPlugin } = require('@distube/soundcloud');
-const { YtDlpPlugin } = require('@distube/yt-dlp');
 
 const fs = require('fs');
 const path = require('path');
@@ -41,7 +40,6 @@ client.distube = new DisTube(client, {
         emitEventsAfterFetching: true
       }),
       new SoundCloudPlugin(),
-      new YtDlpPlugin()
     ]
   })
 
