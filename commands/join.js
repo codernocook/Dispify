@@ -9,7 +9,7 @@ module.exports = {
 	execute: async ({ client, interaction }) => {
         if (!interaction.member.voice.channel) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> You must join a voice channel to make this command work.`).setColor(`Red`)] })
         if (!interaction.member.voice.channel.joinable) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> I can't join the voice channel.`).setColor(`Red`)] })
-        async function connectToChannel(channel: VoiceChannel) {
+        function connectToChannel(channel: VoiceChannel) {
             const connection = joinVoiceChannel({
                 channelId: channel.id,
                 guildId: channel.guild.id,
