@@ -13,14 +13,10 @@ module.exports = {
 		if (!interaction.member.voice.channel) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> You must join a voice channel to play a track!`).setColor(`Red`)] })
 
         //get the url
-		let url = interaction.options.getString("link-or-query")
+		let url = interaction.options.getString("link-or-query").value
 
         // Start playling
-        await client.distube.play(interaction.member.voice.channel, url, {
-            interaction,
-            member: interaction.member,
-            textChannel: interaction.channel,
-        })
+        await client.distube.play(interaction.member.voice.channel, url, { interaction, member: interaction.member, textChannel: interaction.channel })
 
         // Reply success message
         //interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> **[${song.name}](${song.url})** has been added to the Queue.`).setColor(`Green`)] })
