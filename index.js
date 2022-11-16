@@ -1,11 +1,7 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
-const { DisTube } = require("distube");
-
-//Distube plugin (need)!
-const { SpotifyPlugin } = require('@distube/spotify');
-const { SoundCloudPlugin } = require('@distube/soundcloud');
+const { Player } = require("discord-player")
 
 const fs = require('fs');
 const path = require('path');
@@ -30,19 +26,12 @@ for(const file of commandFiles)
 }
 
 // Add the player on the client
-client.distube = new DisTube(client, {
-    leaveOnStop: false,
-    emitNewSongOnly: true,
-    emitAddSongWhenCreatingQueue: false,
-    emitAddListWhenCreatingQueue: false,
-    leaveOnFinish: false,
-    plugins: [
-      new SpotifyPlugin({
-        emitEventsAfterFetching: true
-      }),
-      new SoundCloudPlugin(),
-    ]
-  })
+client.player = new Player(client, {
+    ytdlOptions: {
+        quality: "highestaudio",
+        highWaterMark: 1 << 25
+    }
+})
 
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening })

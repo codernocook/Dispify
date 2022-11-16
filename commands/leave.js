@@ -8,15 +8,17 @@ module.exports = {
 	execute: async ({ client, interaction }) => {
 
         // Get the current queue
-		const queue = client.distube.getQueue(interaction)
+		const queue = client.player.getQueue(interaction.guildId)
 
-		if (!queue) {
+		if (!queue)
+		{
 			await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There no song in the queue!`).setColor(`Red`)] })
 			return;
 		}
 
-        // Start leaving
-		client.distube.voices.leave(message)
+        // Deletes all the songs from the queue and exits the channel
+		queue.destroy();
+
         await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Left channel!`).setColor(`Green`)] })
 	},
 }

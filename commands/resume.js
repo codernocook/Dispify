@@ -7,7 +7,7 @@ module.exports = {
         .setDescription("Resumes the current song"),
 	execute: async ({ client, interaction }) => {
         // Get the queue for the server
-		const queue = client.distube.getQueue(interaction)
+		const queue = client.player.getQueue(interaction.guildId)
 
         // Check if the queue is empty
 		if (!queue)
@@ -17,7 +17,7 @@ module.exports = {
         }
 
         // Pause the current song
-		queue.resume();
+		queue.setPaused(false);
 
         await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Player has been resumed!`).setColor(`Green`)] })
 	},

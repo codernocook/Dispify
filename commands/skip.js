@@ -18,7 +18,7 @@ module.exports = {
 		),
 	execute: async ({ client, interaction }) => {
         // Get the queue for the server
-		const queue = client.distube.getQueue(interaction)
+		const queue = client.player.getQueue(interaction.guildId)
 
         // If there is no queue, return
 		if (!queue)
@@ -27,7 +27,7 @@ module.exports = {
             return;
         }
 
-        const currentSong = queue.songs[0]
+        const currentSong = queue.current
 
         // Get subCommand of song
         if (interaction.options.getSubcommand() === "number") {
@@ -38,16 +38,15 @@ module.exports = {
             if (!Number(position)) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Invaild Position, please type vaild position.`).setColor(`Red`)] });
             if ((Number(position)) > queueSongNumber) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Invaild Position, please type vaild position.`).setColor(`Red`)] });
 
-            client.distube.jump(interaction, position).then(songskippednumber => {
-                interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Now Playing: **[${songskippednumber.name}](${songskippednumber.url})**!`).setColor(`Green`)] })
-            })
+            queue.skipTo(Number(position));
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped **[${currentSong.title}](${currentSong.url})**!`).setColor(`Green`)] });
 		}
         else if (interaction.options.getSubcommand() === "first") {
             // Skip the current song
-            const songskippedfirst = queue.skip()
+            queue.skip()
 
             // Return an embed to the user saying the song has been skipped
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Now Playing: **[${songskippedfirst.name}](${songskippedfirst.url})**!`).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped **[${currentSong.title}](${currentSong.url})**!`).setColor(`Green`)] })
         }
 	},
 }
