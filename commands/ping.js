@@ -3,9 +3,9 @@ const { EmbedBuilder } = require("discord.js")
 
 module.exports = {
         data: new SlashCommandBuilder()
-        .setName("help")
-        .setDescription("Show the help info and commands!"),
+        .setName("ping")
+        .setDescription("Pong!"),
         execute: async ({ client, interaction }) => {
-                interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Pong! **${toString(client.ws.ping)}**`).setColor(`Blue`)] })
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Pong! **${toString(client.ws.ping)}ms**`).setColor(`Green`)] })
         },
 }
