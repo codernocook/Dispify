@@ -6,6 +6,6 @@ module.exports = {
         .setName("help")
         .setDescription("Show the help info and commands!"),
         execute: async ({ client, interaction }) => {
-                interaction.reply({ embeds: [new EmbedBuilder().setDescription("Pong! " + `${toString(client.ws.ping)}`).setColor(`Blue`)] })
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Pong! **${toString(client.ws.ping)}**`).setColor(`Blue`)] })
         },
 }
