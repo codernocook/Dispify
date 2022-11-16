@@ -17,6 +17,7 @@ module.exports = {
 
         // Start playling
         await client.distube.play(interaction.member.voice.channel, url, {
+            interaction,
             member: interaction.member,
             textChannel: interaction.channel,
         })
