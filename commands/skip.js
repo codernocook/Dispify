@@ -39,14 +39,14 @@ module.exports = {
             if ((Number(position)) > queueSongNumber) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> Invaild Position, please type vaild position.`).setColor(`Red`)] });
 
             queue.skipTo(Number(position));
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped **[${currentSong.title}](${currentSong.url})**!`).setColor(`Green`)] });
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped to **[${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].title}](${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].url})**!`).setColor(`Green`)] })
 		}
         else if (interaction.options.getSubcommand() === "first") {
             // Skip the current song
             queue.skip()
 
             // Return an embed to the user saying the song has been skipped
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped **[${currentSong.title}](${currentSong.url})**!`).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped to **[${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].title}](${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].url})**!`).setColor(`Green`)] })
         }
 	},
 }
