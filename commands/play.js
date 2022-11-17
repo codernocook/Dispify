@@ -31,7 +31,7 @@ module.exports = {
 		if (!interaction.member.voice.channel) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> You must join a voice channel to play a track!`).setColor(`Red`)] })
 
         // Create a play queue for the server
-		const queue = await client.player.createQueue(interaction.guild);
+		const queue = await client.player.createQueue(interaction.guild, {metadata: interaction});
 
         // Wait until you are connected to the channel
 		if (!queue.connection) await queue.connect(interaction.member.voice.channel)
