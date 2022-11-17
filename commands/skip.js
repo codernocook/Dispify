@@ -42,11 +42,17 @@ module.exports = {
             interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped to **[${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].title}](${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].url})**!`).setColor(`Green`)] })
 		}
         else if (interaction.options.getSubcommand() === "first") {
+            const queueSongNumber = queue.tracks.map((song, i) => {return i;})
             // Skip the current song
             queue.skip()
 
             // Return an embed to the user saying the song has been skipped
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped to **[${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].title}](${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].url})**!`).setColor(`Green`)] })
+            // Checking if this is the last song in the queue
+            if ((queue.getTrackPosition(currentSong) + 1) < queueSongNumber) {
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped to **[${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].title}](${queue.tracks[Number(queue.getTrackPosition(currentSong)) + 1].url})**!`).setColor(`Green`)] })
+            } else{
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Skipped to the end of the playlist.`).setColor(`Green`)] })
+            }
         }
 	},
 }
