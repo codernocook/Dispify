@@ -25,7 +25,7 @@ module.exports = {
             // check if there are songs in the queue
             if (!queue || !queue.playing)
             {
-                await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no songs in the queue!`).setColor(`Red`)] });
+                await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no songs in the queue!`).setColor(`Red`)] });
                 return;
             }
     
@@ -44,7 +44,7 @@ module.exports = {
             // check if there are songs in the queue
             if (!queue || !queue.playing)
             {
-                await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There are no songs in the queue!`).setColor(`Red`)] });
+                await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no songs in the queue!`).setColor(`Red`)] });
                 return;
             }
     

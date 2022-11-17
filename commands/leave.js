@@ -12,13 +12,13 @@ module.exports = {
 
 		if (!queue)
 		{
-			await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordError:1033721529084694598> There no song in the queue!`).setColor(`Red`)] })
+			await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There no song in the queue!`).setColor(`Red`)] })
 			return;
 		}
 
         // Deletes all the songs from the queue and exits the channel
 		queue.destroy();
 
-        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:SpoticordSuccess:1033721502874484746> Left channel!`).setColor(`Green`)] })
+        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Left channel!`).setColor(`Green`)] })
 	},
 }
