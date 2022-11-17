@@ -5,11 +5,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("volume")
         .setDescription("Change the volume of the music.")
-        .addSubcommand(subcommand =>
-			subcommand
-				.setName("value")
-				.setDescription("The value of new volume.")
-		),
+        .addStringOption(option =>
+            option.setName("value").setDescription("The value of new volume.").setRequired(true)
+        ),
     execute: async ({ client, interaction }) => {
         const queue = client.player.getQueue(interaction.guildId)
         const value = interaction.options.getString("value")
