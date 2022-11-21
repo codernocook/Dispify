@@ -77,17 +77,9 @@ module.exports = {
             // Add the tracks to the queue
             const playlist = result.playlist
             // Over Playlist Reject
-            if (result.tracks.length > 500) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Playlist too long, Dispify can't process.`).setColor(`Red`)] })
+            if (result.tracks.length > 100) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Playlist too long, Dispify can't process.`).setColor(`Red`)] })
             // Add tracks to playlist
-            if (result.tracks.length <= 100) {
-                await queue.addTracks(result.tracks)
-            } else {
-                for (const trackslow of result.tracks.length) {
-                    setTimeout(() => {
-                        queue.addTracks(result.tracks[trackslow])
-                    }, 200);
-                }
-            }
+            await queue.addTracks(result.tracks)
 
             //Reply the message
             interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> **${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue`).setColor(`Green`)] })
