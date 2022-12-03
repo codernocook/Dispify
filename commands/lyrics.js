@@ -15,9 +15,10 @@ module.exports = {
             return;
         }
         const currentSong = queue.current;
-
+        const genius = "https://genius.com"
+        const geniusurl = `https://genius.com/${currentSong.author}-${currentSong.title}-lyrics`
         if (currentSong) {
-            interaction.reply({ embeds: [new EmbedBuilder().setTitle(currentSong.title).setThumbnail(currentSong.thumbnail).setDescription(`Lyrics: **[https://genius.com](https://genius.com/${currentSong.author}-${currentSong.title}-lyrics)**`).setColor(`Blue`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setTitle(currentSong.title).setThumbnail(currentSong.thumbnail).setDescription(`Lyrics: **[${genius}](${geniusurl})**`).setColor(`Blue`)] })
         }
 	},
 }
