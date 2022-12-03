@@ -4,7 +4,7 @@ const { QueryType } = require("discord-player")
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("Info")
+		.setName("info")
 		.setDescription("Get the current song infomation"),
 	execute: async ({ client, interaction }) => {
         const queue = client.player.getQueue(interaction.guildId)
