@@ -19,7 +19,7 @@ module.exports = {
         const currentSong = queue.current;
 
         if (currentSong) {
-            lyricsClient.search(currentSong.url).then(infoget => {
+            lyricsClient.search(currentSong.author + " - " + currentSong.title).then(infoget => {
                 // Check if the playlist is invaild
                 if (!infoget || !infoget["title"] || !infoget["thumbnail"] || !infoget["lyrics"]) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> This command is not working right now!`).setColor(`Red`)] })
                 // Reply the infomation
