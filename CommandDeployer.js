@@ -10,6 +10,7 @@
         ["option"]
     }
 */
+const testf = [{"f": "F"}, {"f": "F"}]
 
 const { CommandClient } = require('eris')
 const token = process.env.token // put the bot token here or change the env name
@@ -25,6 +26,11 @@ async function deployprocess(info) {
 
 module.exports = {
     deploy(info) {
-        deployprocess(info)
+        // split the info
+        for (const i of info["name"]) {
+            let infosplit = i // create this varible cuz [i] not allowed to run at the same time
+            //start deploy the split value
+            deployprocess(infosplit)
+        }
     }
 }
