@@ -35,7 +35,6 @@ client.player = new Player(client, {
 
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
-    require("./CommandDeployer").deploy(commands) // only need when bot is run cuz this command is forever!
     // Deploy when discord bot run
     const guild_ids = client.guilds.cache.map(guild => guild.id);
 
