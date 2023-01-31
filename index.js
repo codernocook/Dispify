@@ -3,10 +3,13 @@ const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
 const { Player } = require("discord-player")
 
+const token = process.env.TOKEN
+const CLIENT_ID = process.env.CLIENT_ID
+
 const fs = require('fs');
 const path = require('path');
 const { resolve } = require('path');
-const rest = new REST({version: '10'}).setToken(process.env.TOKEN);
+const rest = new REST({version: '10'}).setToken(token);
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]});
 
@@ -36,7 +39,7 @@ client.player = new Player(client, {
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening, description: "https://dispify.vercel.app" })
     // Deploy when discord bot run
-    rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID), {body: commands}).catch(console.error);
+    rest.put(Routes.applicationGuildCommands(CLIENT_ID), {body: commands}).catch(console.error);
 });
 
 client.player.on("trackStart", (queue, track) => queue.metadata.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Now Playing **[${track.title}](${track.url})**.`).setColor(`Green`)] }))
@@ -56,4 +59,4 @@ client.on("interactionCreate", async interaction => {
     }
 });
 
-client.login(process.env.TOKEN);
+client.login(token);
