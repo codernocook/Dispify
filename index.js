@@ -39,7 +39,7 @@ client.player = new Player(client, {
 client.on("ready", async () => {
     client.user.setActivity(`Spotify`, { type: ActivityType.Listening, description: "https://dispify.vercel.app" })
     // Deploy when discord bot run
-    rest.put(Routes.applicationCommand(CLIENT_ID), {body: commands}).catch(console.error);
+    rest.put(Routes.applicationCommands(CLIENT_ID), {body: commands}).catch(err => console.log(err));
 });
 
 client.player.on("trackStart", (queue, track) => queue.metadata.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Now Playing **[${track.title}](${track.url})**.`).setColor(`Green`)] }))
