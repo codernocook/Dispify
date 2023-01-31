@@ -34,20 +34,12 @@ client.player = new Player(client, {
 })
 
 client.on("ready", async () => {
-    client.user.setActivity(`Spotify`, { type: ActivityType.Listening })
+    client.user.setActivity(`Spotify`, { type: ActivityType.Listening, description: "https://dispify.vercel.app" })
     // Deploy when discord bot run
-    const guild_ids = client.guilds.cache.map(guild => guild.id);
-
-    for (const guildId of guild_ids) {
-        rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildId), {body: commands}).catch(console.error);
-    }
+    rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID), {body: commands}).catch(console.error);
 });
 
 client.player.on("trackStart", (queue, track) => queue.metadata.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Now Playing **[${track.title}](${track.url})**.`).setColor(`Green`)] }))
-
-client.on("guildCreate", async (guildcreate) => {
-    rest.put(Routes.applicationGuildCommands(process.env.CLIENT_ID, guildcreate.id), {body: commands}).catch(console.error);
-})
 
 client.on("interactionCreate", async interaction => {
     if(!interaction.isCommand()) return;
