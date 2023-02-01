@@ -33,7 +33,6 @@ module.exports = {
         // Create a play queue for the server
 		const queue = await client.player.createQueue(interaction.guild, {
             metadata: interaction,
-            leaveOnStop: false,
             leaveOnEmptyCooldown: 60 * 1000,
         });
 
