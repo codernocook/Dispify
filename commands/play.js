@@ -34,6 +34,14 @@ module.exports = {
 		const queue = await client.player.createQueue(interaction.guild, {
             metadata: interaction,
             leaveOnEmptyCooldown: 60 * 1000,
+            async onBeforeCreateStream(track, source, _queue) {
+                // only trap youtube source
+                if (source === "youtube") {
+                    // track here would be youtube track
+                    return (await playdl.stream(track.url, { discordPlayerCompatibility : true })).stream;
+                    // we must return readable stream or void (returning void means telling discord-player to look for default extractor)
+                }
+            }
         });
 
         // Wait until you are connected to the channel
