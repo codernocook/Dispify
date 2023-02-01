@@ -2,7 +2,6 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
 const { Player } = require("discord-player");
-const playdl = require("play-dl");
 
 const token = process.env.TOKEN
 const CLIENT_ID = process.env.CLIENT_ID
