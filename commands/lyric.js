@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { EmbedBuilder } = require("discord.js");
-const lyricsFinder = require('lyrics-finder');
+const lyricSearcher = require('lyrics-searcher-musixmatch').default;
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -19,13 +19,19 @@ module.exports = {
 		}
         
         // Get the current song lyrics
-		let lyrics = await lyricsFinder(currentSong.author, currentSong.title) || "Not Found!";
+		lyricSearcher(`${currentSong.author} - ${currentSong.title}`).then((bodylyrics) => {
+			if (!bodylyrics) return interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
+			if (!bodylyrics["lyrics"]) return interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
+			if (bodylyrics.info.track.name.toLowerCase().trim() !== currentSong.title.toLowerCase().trim()) return interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
 
-        if (lyrics.length >= 1996) {
-            let trimmedString = yourString.substr(0, maxLength);
-            lyrics = trimmedString + " ...";
-        }
+			let lyrics = bodylyrics["lyrics"];
 
-        await interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`${lyrics}`).setColor(`Blue`)] });
+			if (lyrics.length >= 1996) {
+				let trimmedString = yourString.substr(0, maxLength);
+				lyrics = trimmedString + " ...";
+			}
+	
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`${lyrics}`).setColor(`Blue`)] });
+		})
 	},
 }
