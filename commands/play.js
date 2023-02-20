@@ -40,7 +40,7 @@ module.exports = {
 		if (!queue.connection) await queue.connect(interaction.member.voice.channel)
 
 		if (interaction.options.getSubcommand() === "song") {
-            let url = interaction.options.getString("url")
+            let url = interaction.options.getString("url");
             
             // Search for the song using the discord-player
             const result = await client.player.search(url, {
@@ -65,7 +65,7 @@ module.exports = {
 		}
         else if (interaction.options.getSubcommand() === "playlist") {
             // Search for the playlist using the discord-player
-            let url = interaction.options.getString("url")
+            let url = interaction.options.getString("url");
             const result = await client.player.search(url, {
                 requestedBy: interaction.user,
                 searchEngine: QueryType.SPOTIFY_PLAYLIST
@@ -90,7 +90,7 @@ module.exports = {
 		} 
         else if (interaction.options.getSubcommand() === "search") {
             // Search for the song using the discord-player
-            let url = interaction.options.getString("searchterms")
+            let url = interaction.options.getString("searchterms");
             const result = await client.player.search(url, {
                 requestedBy: interaction.user,
                 searchEngine: QueryType.AUTO

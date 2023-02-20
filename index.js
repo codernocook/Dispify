@@ -60,8 +60,8 @@ client.on("interactionCreate", async interaction => {
         await command.execute({client, interaction});
     }
     catch(error) {
-        console.error(error);
-        //await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Something went wrong with this command!`).setColor(`Red`)] })
+        console.log(error);
+        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] })
     }
 });
 
