@@ -61,7 +61,9 @@ client.on("interactionCreate", async interaction => {
     }
     catch(error) {
         console.log(error);
-        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] })
+        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch(() => {
+            interaction.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch((err) => {console.log(err)})
+        })
     }
 });
 

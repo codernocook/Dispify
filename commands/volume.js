@@ -13,7 +13,7 @@ module.exports = {
         const value = interaction.options.getString("value")
 
         // check to make sure no error while run this command
-        if (!queue || !queue.playing)
+        if (!queue || (!queue.playing && !queue.connection))
         {
             await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no songs in the queue!`).setColor(`Red`)] });
             return;

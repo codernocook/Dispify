@@ -9,14 +9,15 @@ module.exports = {
 	execute: async ({ client, interaction }) => {
         // Get the queue for the server
 		const queue = client.player.getQueue(interaction.guildId)
-        const currentSong = queue.current
 
         // Check if the queue is empty
-		if (!queue)
+		if (!queue (!queue.playing && !queue.connection))
 		{
 			await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Green`)] })
 			return;
 		}
+
+		const currentSong = queue.current;
         
         // Get the current song lyrics
 		lyricSearcher(`${currentSong.author} - ${currentSong.title}`).then((bodylyrics) => {

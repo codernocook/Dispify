@@ -9,7 +9,7 @@ module.exports = {
 	execute: async ({ client, interaction }) => {
         const queue = client.player.getQueue(interaction.guildId)
 
-        if (!queue || !queue.playing) {
+        if (!queue || (!queue.playing && !queue.connection)) {
             await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no songs in the queue!`).setColor(`Red`)] });
             return;
         }
