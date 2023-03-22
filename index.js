@@ -44,7 +44,7 @@ client.on("ready", async () => {
 });
 
 // My plan is upgrade to v6 but it have so many bugs so i use this method instead
-player.on('connectionCreate', (queue) => {
+client.on('connectionCreate', (queue) => {
     queue.connection.voiceConnection.on('stateChange', (oldState, newState) => {
       const oldNetworking = Reflect.get(oldState, 'networking');
       const newNetworking = Reflect.get(newState, 'networking');
