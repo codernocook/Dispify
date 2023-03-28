@@ -7,17 +7,17 @@ module.exports = {
 		.setName("info")
 		.setDescription("Get current track infomation"),
 	execute: async ({ client, interaction }) => {
-        const queue = client.player.getQueue(interaction.guildId)
+        const queue = client.player.nodes.get(interaction.guildId)
 
-        if (!queue || (!queue.playing && !queue.connection)) {
-            await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no songs in the queue!`).setColor(`Red`)] });
+        if (!queue || !queue.isPlaying()) {
+            await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
             return;
         }
         
-        const currentSong = queue.current
+        const currentSong = queue.currentTrack;
 
         if (currentSong) {
-            interaction.reply({ embeds: [new EmbedBuilder().setTitle(currentSong.title).setThumbnail(currentSong.thumbnail).setDescription(`Author: ${currentSong.author}\nDescription: \`${currentSong.description}\`\nUrl: ${currentSong.url}`).setColor(`Blue`)] });
+            interaction.editReply({ embeds: [new EmbedBuilder().setTitle(currentSong.title).setThumbnail(currentSong.thumbnail).setDescription(`Author: ${currentSong.author}\nDescription: \`${currentSong.description}\`\nUrl: ${currentSong.url}`).setColor(`Blue`)] });
         }
 	},
 }

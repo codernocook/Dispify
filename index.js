@@ -20,7 +20,7 @@ client.commands = new Collection();
 
 const commandsPath = path.join(__dirname, "commands");
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
-for(const file of commandFiles)
+for (const file of commandFiles)
 {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
@@ -35,49 +35,51 @@ client.player = new Player(client, {
         quality: "highestaudio",
         highWaterMark: 1 << 25
     }
-})
+});
 
 client.on("ready", async () => {
-    client.user.setActivity(`Spotify`, { type: ActivityType.Listening, description: "https://dispify.vercel.app" })
+    function SetBotStatus() {
+        client.user.setActivity(`Spotify`, { type: ActivityType.Listening, description: "https://dispify.vercel.app" });
+        setTimeout(SetBotStatus, 3600000); // looping the set status
+    }
+    SetBotStatus(); // prevent from bot stoping show status
     // Deploy when discord bot run
     rest.put(Routes.applicationCommands(CLIENT_ID), {body: commands}).catch(err => console.log(err));
 });
 
-// My plan is upgrade to v6 but it have so many bugs so i use this method instead
-client.on('connectionCreate', (queue) => {
-    queue.connection.voiceConnection.on('stateChange', (oldState, newState) => {
-      const oldNetworking = Reflect.get(oldState, 'networking');
-      const newNetworking = Reflect.get(newState, 'networking');
-
-      const networkStateChangeHandler = (oldNetworkState, newNetworkState) => {
-        const newUdp = Reflect.get(newNetworkState, 'udp');
-        clearInterval(newUdp?.keepAliveInterval);
-      }
-
-      oldNetworking?.off('stateChange', networkStateChangeHandler);
-      newNetworking?.on('stateChange', networkStateChangeHandler);
-    });
+// Dev debugger
+/*
+client.player.events.on('debug', async (queue, message) => {
+    // Emitted when the player queue sends debug info
+    // Useful for seeing what state the current queue is at
+    console.log(`Player debug event: ${message}`);
 });
+*/
+//-----------------------------------
 
-client.player.on("trackStart", (queue, track) => queue.metadata.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Now Playing **[${track.title}](${track.url})**.`).setColor(`Green`)] }))
+// Player event
+client.player.on("playerStart", (queue, track) => queue.metadata.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Now Playing **[${track.title}](${track.url})**.`).setColor(`Green`)] }))
 
-client.player.on('trackEnd', async (queue, track) => {
+client.player.on("playerFinish", async (queue, track) => {
     if (!queue) return;
-    if(!queue.connection) await queue.play(track);
+    if (!queue.connection) await queue.play(track);
 });
+//-----------------------------------
 
 client.on("interactionCreate", async interaction => {
     if(!interaction.isCommand()) return;
 
     const command = client.commands.get(interaction.commandName);
     if(!command) return;
+    // Defer reply to prevent many command make bot crash
+    await interaction.deferReply();
 
     try {
         await command.execute({client, interaction});
     }
     catch(error) {
         console.log(error);
-        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch(() => {
+        await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch(() => {
             interaction.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch((err) => {console.log(err)})
         })
     }

@@ -20,24 +20,23 @@ module.exports = {
 		),
     execute: async ({ client, interaction }) => {
         if (interaction.options.getSubcommand() === "list") {
-            const queue = client.player.getQueue(interaction.guildId)
+            const queue = client.player.nodes.get(interaction.guildId)
 
             // check if there are songs in the queue
-            if (!queue || (!queue.playing && !queue.connection))
-            {
-                await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no songs in the queue!`).setColor(`Red`)] });
+            if (!queue || !queue.isPlaying()) {
+                await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
                 return;
             }
-    
+
             // Get the first 10 songs in the queue
-            const queueString = queue.tracks.slice(0, 10).map((song, i) => {
+            const queueString = queue["tracks"]["data"].slice(0, 10).map((song, i) => {
                 return `${i}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
             }).join("\n")
 
             // Total Page
             let TotalPage = 0;
             
-            const pagetotal = queue.tracks.length/10;
+            const pagetotal = queue.tracks.size/10;
 
             if (((pagetotal - Math.floor(pagetotal)) !== 0) === true) {
                 TotalPage = Math.floor(pagetotal) + 1; 
@@ -46,29 +45,28 @@ module.exports = {
             }
     
             // Get the current song
-            const currentSong = queue.current
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter({text: `1/${TotalPage}`}).setColor(`Green`)] })
+            const currentSong = queue.currentTrack;
+            interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter({text: `1/${TotalPage}`}).setColor(`Green`)] })
         }
         else if (interaction.options.getSubcommand() === "page") {
-            const queue = client.player.getQueue(interaction.guildId)
+            const queue = client.player.nodes.get(interaction.guildId)
 
             // check if there are songs in the queue
-            if (!queue || (!queue.playing && !queue.connection))
-            {
-                await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no songs in the queue!`).setColor(`Red`)] });
+            if (!queue || !queue.isPlaying()) {
+                await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
                 return;
             }
     
             // Get the first 10 songs in the queue
             if (!Number(interaction.options.getString("position"))) return;
-            const queueString = queue.tracks.slice(((Number(interaction.options.getString("position")) - 1) * 10), ((Number(interaction.options.getString("position")) - 1) * 10) + 10).map((song, i) => {
+            const queueString = queue["tracks"]["data"].slice(((Number(interaction.options.getString("position")) - 1) * 10), ((Number(interaction.options.getString("position")) - 1) * 10) + 10).map((song, i) => {
                 return `${i + ((Number(interaction.options.getString("position")) - 1) * 10)}) [${song.duration}] ${song.title} - <@${song.requestedBy.id}>`
             }).join("\n")
 
             // Total Page
             let TotalPage = 0;
 
-            const pagetotal = queue.tracks.length/10;
+            const pagetotal = queue.tracks.size/10;
 
             if (((pagetotal - Math.floor(pagetotal)) !== 0) === true) {
                 TotalPage = Math.floor(pagetotal) + 1; 
@@ -77,8 +75,8 @@ module.exports = {
             }
     
             // Get the current song
-            const currentSong = queue.current
-            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter({text: `Page: ${Number(interaction.options.getString("position"))}/${TotalPage}`}).setColor(`Green`)] })
+            const currentSong = queue.currentTrack;
+            interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter({text: `Page: ${Number(interaction.options.getString("position"))}/${TotalPage}`}).setColor(`Green`)] })
         }
     }
 }

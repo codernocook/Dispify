@@ -8,17 +8,16 @@ module.exports = {
 	execute: async ({ client, interaction }) => {
 
         // Get the current queue
-		const queue = client.player.getQueue(interaction.guildId)
+		const queue = client.player.nodes.get(interaction.guildId)
 
-		if (!queue)
-		{
-			await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There no song in the queue!`).setColor(`Red`)] })
-			return;
-		}
+		if (!queue) {
+            await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
+            return;
+        }
 
-        // Deletes all the songs from the queue and exits the channel
-		queue.destroy();
+        // use delete() function to delete the queue
+		queue.delete();
 
-        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Left channel!`).setColor(`Green`)] })
+        await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Left channel!`).setColor(`Green`)] })
 	},
 }
