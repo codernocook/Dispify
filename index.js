@@ -76,16 +76,17 @@ client.on("interactionCreate", async interaction => {
     if(!command) return;
     // Defer reply to prevent many command make bot crash
     await interaction.deferReply();
-
-    try {
-        await command.execute({client, interaction});
-    }
-    catch(error) {
+    setTimeout(() => {
+      try {
+          await command.execute({client, interaction});
+      }
+      catch(error) {
         console.log(error);
         await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch(() => {
             interaction.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch((err) => {console.log(err)})
         })
-    }
+      }
+    })
 });
 
 client.login(token);
