@@ -37,6 +37,9 @@ client.player = new Player(client, {
     }
 });
 
+// Error handler
+process.on('uncaughtException', function(err) {})
+
 client.on("ready", async () => {
     function SetBotStatus() {
         client.user.setActivity(`Spotify`, { type: ActivityType.Listening, description: "https://dispify.vercel.app" });
@@ -58,9 +61,9 @@ client.player.events.on('debug', async (queue, message) => {
 //-----------------------------------
 
 // Player event
-client.player.on("playerStart", (queue, track) => queue.metadata.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Now Playing **[${track.title}](${track.url})**.`).setColor(`Green`)] }))
+client.player.events.on("playerStart", (queue, track) => queue.metadata.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Now Playing **[${track.title}](${track.url})**.`).setColor(`Green`)] }))
 
-client.player.on("playerFinish", async (queue, track) => {
+client.player.events.on("playerFinish", async (queue, track) => {
     if (!queue) return;
     if (!queue.connection) await queue.play(track);
 });
