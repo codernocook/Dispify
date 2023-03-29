@@ -37,6 +37,9 @@ client.player = new Player(client, {
     }
 });
 
+// Prevent bot from crashing
+process.on('uncaughtException', function(err) {})
+
 client.on("ready", async () => {
     function SetBotStatus() {
         client.user.setActivity(`Spotify`, { type: ActivityType.Listening, description: "https://dispify.vercel.app" });
@@ -44,7 +47,9 @@ client.on("ready", async () => {
     }
     SetBotStatus(); // prevent from bot stoping show status
     // Deploy when discord bot run
-    rest.put(Routes.applicationCommands(CLIENT_ID), {body: commands}).catch(err => console.log(err));
+    console.log("[Dispify]: Started bot.")
+    await rest.put(Routes.applicationCommands(CLIENT_ID), {body: commands}).catch(err => console.log(err));
+    console.log("[Dispify]: Deployed all command.")
 });
 
 // Dev debugger
@@ -58,9 +63,9 @@ client.player.events.on('debug', async (queue, message) => {
 //-----------------------------------
 
 // Player event
-client.player.on("playerStart", (queue, track) => queue.metadata.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Now Playing **[${track.title}](${track.url})**.`).setColor(`Green`)] }))
+client.player.events.on("playerStart", (queue, track) => queue.metadata.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Now Playing **[${track.title}](${track.url})**.`).setColor(`Green`)] }))
 
-client.player.on("playerFinish", async (queue, track) => {
+client.player.events.on("playerFinish", async (queue, track) => {
     if (!queue) return;
     if (!queue.connection) await queue.play(track);
 });
@@ -76,7 +81,7 @@ client.on("interactionCreate", async interaction => {
         await command.execute({client, interaction});
     }
     catch(error) {
-        console.log(error);
+        //console.log(error); // Disable if you don't like annoying error on the console
         await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch(() => {
             interaction.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch((err) => {console.log(err)})
         })

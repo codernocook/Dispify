@@ -76,9 +76,9 @@ module.exports = {
                 //Check if wrong type of result spam error
                 if (!url) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Missing url option.`).setColor(`Red`)] });
                 if (!result) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
-                if  (!result["tracks"]) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
+                if (!result["tracks"]) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
                 if (result === undefined) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
-
+                if (!result["tracks"][0]) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no result for the selected song.`).setColor(`Red`)] });
                 // finish if no tracks were found
                 if (!result.hasTracks()) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Sorry, No result was found!`).setColor(`Red`)] })
                 
@@ -95,7 +95,7 @@ module.exports = {
                 })
 
                 // Reply the message
-                interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> **[${song.title}](${song.url})** has been added to the Queue.`).setColor(`Green`)] });
+                interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> **[${result["tracks"][0]["title"]}](${result["tracks"][0]["url"]})** has been added to the Queue.`).setColor(`Green`)] });
             } else if (resulttype === "playlist") {
                 const playlist = result.playlist;
 
@@ -119,7 +119,7 @@ module.exports = {
                 })
 
                 // Reply the message
-                interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> **${result.tracks.length} songs from [${playlist.title}](${playlist.url})** have been added to the Queue`).setColor(`Green`)] });
+                interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> **${result["tracks"]["length"]} songs from [${playlist["title"]}](${playlist["url"]})** have been added to the Queue`).setColor(`Green`)] });
             }
         }
 	},
