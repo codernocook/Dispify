@@ -83,7 +83,7 @@ module.exports = {
                 if (!result.hasTracks()) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Sorry, No result was found!`).setColor(`Red`)] })
                 
                 // Play the track to the queue
-                const song = await client.player.play(interaction.member.voice.channel.id, result, {
+                const song = client.player.play(interaction.member.voice.channel.id, result, {
                     nodeOptions: {
                         metadata: {
                             channel: interaction.channel,
@@ -107,7 +107,7 @@ module.exports = {
                 if (!result.hasTracks()) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> No playlist found with **[${playlist.title}](${playlist.url})**`).setColor(`Red`)] })
 
                 // Play and add the playlist to the queue
-                const song = await client.player.play(interaction.member.voice.channel.id, result, {
+                const song = client.player.play(interaction.member.voice.channel.id, result, {
                     nodeOptions: {
                         metadata: {
                             channel: interaction.channel,
