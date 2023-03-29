@@ -6,6 +6,6 @@ module.exports = {
         .setName("ping")
         .setDescription("Pong!"),
         execute: async ({ client, interaction }) => {
-                interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`Pong! **${client.ws.ping}ms**`).setColor(`Green`)] })
+                interaction.reply({ embeds: [new EmbedBuilder().setDescription(`Pong! **${client.ws.ping}ms**`).setColor(`Green`)] })
         },
 }

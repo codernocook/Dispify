@@ -14,7 +14,7 @@ module.exports = {
 
         // Check if the queue is empty
 		if (!queue || !queue.isPlaying()) {
-            await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
+            await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
             return;
         }
 
@@ -22,9 +22,9 @@ module.exports = {
         
         // Get the current song lyrics
 		lyricsFinder.search(`${currentSong.author} - ${currentSong.title}`).then((bodylyrics) => {
-			if (!bodylyrics) return interaction.editReply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
-			if (!bodylyrics["lyrics"]) return interaction.editReply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
-			if (bodylyrics.info.track.name.toLowerCase().trim() !== currentSong.title.toLowerCase().trim()) return interaction.editReply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
+			if (!bodylyrics) return interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
+			if (!bodylyrics["lyrics"]) return interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
+			if (bodylyrics.info.track.name.toLowerCase().trim() !== currentSong.title.toLowerCase().trim()) return interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
 
 			let lyrics = bodylyrics["lyrics"];
 
@@ -33,7 +33,7 @@ module.exports = {
 				lyrics = trimmedString + " ...";
 			}
 	
-			interaction.editReply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`${lyrics}`).setColor(`Blue`)] });
-		}).catch(() => {interaction.editReply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found or error.`).setColor(`Blue`)] });})
+			interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`${lyrics}`).setColor(`Blue`)] });
+		}).catch(() => {interaction.reply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found or error.`).setColor(`Blue`)] });})
 	},
 }

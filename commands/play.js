@@ -9,7 +9,10 @@ module.exports = {
 		.addStringOption(option => option.setName("url").setDescription("Search or a track/playlist/album.").setRequired(true)),
 	execute: async ({ client, interaction }) => {
         // Make sure the user is inside a voice channel
-		if (!interaction.member.voice.channel) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> You must join a voice channel to play a track!`).setColor(`Red`)] });
+		if (!interaction.member.voice.channel) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> You must join a voice channel to play a track!`).setColor(`Red`)] });
+
+        // Defer reply to prevent many command make bot crash
+        await interaction.deferReply();
 
 		// Search for the song using the discord-player
         let url_data = interaction.options.getString("url");

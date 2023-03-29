@@ -14,16 +14,16 @@ module.exports = {
 
         // check to make sure no error while run this command
         if (!queue || !queue.isPlaying()) {
-            await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
+            await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
             return;
         }
 
-        if (!value || !Number(value)) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Invaild Volume Number.`).setColor(`Red`)] });
-        if (value > 100) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Value Number is too high.`).setColor(`Red`)] });
+        if (!value || !Number(value)) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Invaild Volume Number.`).setColor(`Red`)] });
+        if (value > 100) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Value Number is too high.`).setColor(`Red`)] });
 
         // setting value
         queue.node.setVolume(Number(value));
         //reply message
-        interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Change the volume to **${Number(value)}**.`).setColor(`Green`)] })
+        interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Change the volume to **${Number(value)}**.`).setColor(`Green`)] })
     }
 }

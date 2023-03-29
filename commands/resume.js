@@ -11,16 +11,16 @@ module.exports = {
 
         // Check if the queue is empty
 		if (!queue) {
-            await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
+            await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
             return;
         }
         
         // Check if the request is vaild
-        if (!queue.node.isPaused()) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> The queue is playing you can't resume it.`).setColor(`Red`)] })
+        if (!queue.node.isPaused()) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> The queue is playing you can't resume it.`).setColor(`Red`)] })
 
         // Pause the current song
 		queue.node.resume();
 
-        await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Player has been resumed!`).setColor(`Green`)] })
+        await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Player has been resumed!`).setColor(`Green`)] })
 	},
 }

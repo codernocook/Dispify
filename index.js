@@ -71,8 +71,6 @@ client.on("interactionCreate", async interaction => {
 
     const command = client.commands.get(interaction.commandName);
     if(!command) return;
-    // Defer reply to prevent many command make bot crash
-    await interaction.deferReply();
 
     try {
         await command.execute({client, interaction});

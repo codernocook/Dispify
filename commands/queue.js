@@ -24,7 +24,7 @@ module.exports = {
 
             // check if there are songs in the queue
             if (!queue || !queue.isPlaying()) {
-                await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
+                await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
                 return;
             }
 
@@ -46,14 +46,14 @@ module.exports = {
     
             // Get the current song
             const currentSong = queue.currentTrack;
-            interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter({text: `1/${TotalPage}`}).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter({text: `1/${TotalPage}`}).setColor(`Green`)] })
         }
         else if (interaction.options.getSubcommand() === "page") {
             const queue = client.player.nodes.get(interaction.guildId)
 
             // check if there are songs in the queue
             if (!queue || !queue.isPlaying()) {
-                await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
+                await interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
                 return;
             }
     
@@ -76,7 +76,7 @@ module.exports = {
     
             // Get the current song
             const currentSong = queue.currentTrack;
-            interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter({text: `Page: ${Number(interaction.options.getString("position"))}/${TotalPage}`}).setColor(`Green`)] })
+            interaction.reply({ embeds: [new EmbedBuilder().setDescription(`**Currently Playing**\n` + (currentSong ? `[${currentSong.duration}] ${currentSong.title} - <@${currentSong.requestedBy.id}>` : "None") + `\n\n**Queue**\n${queueString}`).setFooter({text: `Page: ${Number(interaction.options.getString("position"))}/${TotalPage}`}).setColor(`Green`)] })
         }
     }
 }
