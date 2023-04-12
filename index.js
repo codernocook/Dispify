@@ -85,6 +85,8 @@ client.on("interactionCreate", async interaction => {
         await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch(() => {
             interaction.channel.send({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Something went wrong with this command.`).setColor(`Red`)] }).catch((err) => {console.log(err)})
         })
+
+        throw error; // trigger the errorHandler
     }
 });
 
