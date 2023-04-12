@@ -48,7 +48,7 @@ client.on("ready", async () => {
     SetBotStatus(); // prevent from bot stoping show status
     // Deploy when discord bot run
     console.log("[Dispify]: Started bot.")
-    await rest.put(Routes.applicationCommands(CLIENT_ID), {body: commands}).catch(err => {throw err});
+    await rest.put(Routes.applicationCommands(CLIENT_ID), {body: commands}).catch(err => console.log(err));
     console.log("[Dispify]: Deployed all command.")
 });
 
