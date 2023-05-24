@@ -1,6 +1,11 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
+
+// FFmpeg path
+process.env.FFMPEG_PATH = require("ffmpeg-static");
+
+// The main player require
 const { Player } = require("discord-player");
 
 require('dotenv').config({path: "./settings.env"});
@@ -46,10 +51,15 @@ client.on("ready", async () => {
         setTimeout(SetBotStatus, 3600000); // looping the set status
     }
     SetBotStatus(); // prevent from bot stoping show status
+
     // Deploy when discord bot run
     console.log("[Dispify]: Started bot.")
     await rest.put(Routes.applicationCommands(CLIENT_ID), {body: commands}).catch(err => console.log(err));
     console.log("[Dispify]: Deployed all command.")
+
+    // Register extractors again
+    await client.player.extractors.loadDefault();
+    console.log("[Dispify]: Registered extractors");
 });
 
 // Dev debugger
