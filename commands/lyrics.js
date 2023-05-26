@@ -25,7 +25,6 @@ module.exports = {
 		lyricSearcher(`${currentSong.title}`).then((bodylyrics) => {
 			if (!bodylyrics) return interaction.editReply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
 			if (!bodylyrics["lyrics"]) return interaction.editReply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
-			if (bodylyrics.info.track.name.toLowerCase().trim() !== currentSong.title.toLowerCase().trim()) return interaction.editReply({ embeds: [new EmbedBuilder().setTitle(`Lyrics of "${currentSong.title}"`).setDescription(`Not found.`).setColor(`Blue`)] });
 
 			let lyrics = bodylyrics["lyrics"];
 
