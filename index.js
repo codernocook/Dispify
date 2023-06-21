@@ -42,8 +42,9 @@ client.player = new Player(client, {
     }
 });
 
-// Prevent bot from crashing
-process.on('uncaughtException', function(err) {})
+// Prevent bot from crashing (error handler)
+process.on('uncaughtException', function(err) {});
+client.player.events.on('playerError', async (queue, error) => {});
 
 client.on("ready", async () => {
     function SetBotStatus() {
