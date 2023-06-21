@@ -7,6 +7,9 @@ module.exports = {
 		.setName("lyrics")
 		.setDescription("The lyric of the current song"),
 	execute: async ({ client, interaction }) => {
+		// defer Reply (because lyrics need more time to fetch)
+		await interaction.deferReply();
+		
         // Get the queue for the server
 		const queue = client.player.nodes.get(interaction.guildId)
 
@@ -15,9 +18,6 @@ module.exports = {
             await interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> There are no song in the queue!`).setColor(`Red`)] })
             return;
         }
-
-		// Defer reply to prevent many command make bot crash
-        await interaction.deferReply();
 
 		const currentSong = queue.currentTrack;
         

@@ -24,7 +24,7 @@ module.exports = {
                     searchEngine: QueryType.SPOTIFY_PLAYLIST
                 })
                 if (result["playlist"]) {
-                    runplscript(url_data, result, "playlist", "spotify");
+                    playSong(url_data, result, "playlist", "spotify");
                 } else {
                     throw ""; // this trigger catch method
                 }
@@ -34,7 +34,7 @@ module.exports = {
                     searchEngine: QueryType.SPOTIFY_ALBUM
                 })
                 if (result["playlist"]) {
-                    runplscript(url_data, result, "playlist", "spotify");
+                    playSong(url_data, result, "playlist", "spotify");
                 } else {
                     throw ""; // this trigger catch method
                 }
@@ -46,7 +46,7 @@ module.exports = {
                     searchEngine: QueryType.YOUTUBE_PLAYLIST
                 })
                 if (result["playlist"]) {
-                    runplscript(url_data, result, "playlist", "youtube");
+                    playSong(url_data, result, "playlist", "youtube");
                 } else {
                     throw ""; // this trigger catch method
                 }
@@ -57,7 +57,7 @@ module.exports = {
                         searchEngine: QueryType.SOUNDCLOUD_PLAYLIST
                     })
                     if (result["playlist"]) {
-                        runplscript(url_data, result, "playlist", "soundcloud");
+                        playSong(url_data, result, "playlist", "soundcloud");
                     } else {
                         throw ""; // this trigger catch method
                     }
@@ -66,12 +66,12 @@ module.exports = {
                         requestedBy: interaction.user,
                         searchEngine: QueryType.AUTO
                     })
-                    runplscript(url_data, result, "track", "track");
+                    playSong(url_data, result, "track", "track");
                 }
             }
         }
 
-        async function runplscript(url, result, resulttype, playlisttype) {
+        async function playSong(url, result, resulttype, playlisttype) {
             if (resulttype === "track") {
                 //Check if wrong type of result spam error
                 if (!url) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Missing url option.`).setColor(`Red`)] });
@@ -88,7 +88,8 @@ module.exports = {
                         metadata: {
                             channel: interaction.channel,
                             client: client,
-                            requestedBy: interaction.user
+                            requestedBy: interaction.user,
+                            filter: new Set()
                         },
                         volume: 100
                     }
@@ -112,7 +113,8 @@ module.exports = {
                         metadata: {
                             channel: interaction.channel,
                             client: client,
-                            requestedBy: interaction.user
+                            requestedBy: interaction.user,
+                            filter: new Set()
                         },
                         volume: 100
                     }
