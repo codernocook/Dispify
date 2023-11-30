@@ -1,4 +1,8 @@
 {
+  "author": {
+    "name": "itzporium",
+    "url": "https://codernocook.github.io"
+  },
   "dependencies": {
     "@discord-player/extractor": "^4.2.1",
     "@discordjs/builders": "^1.6.3",
