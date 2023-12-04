@@ -87,6 +87,7 @@ module.exports = {
                     nodeOptions: {
                         metadata: {
                             channel: interaction.channel,
+                            looped: false,
                             client: client,
                             requestedBy: interaction.user,
                             filter: new Set()
@@ -112,6 +113,7 @@ module.exports = {
                     nodeOptions: {
                         metadata: {
                             channel: interaction.channel,
+                            looped: false,
                             client: client,
                             requestedBy: interaction.user,
                             filter: new Set()
