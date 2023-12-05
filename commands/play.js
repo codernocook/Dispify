@@ -8,11 +8,11 @@ module.exports = {
 		.setDescription("Play a song from Spotify.")
 		.addStringOption(option => option.setName("url").setDescription("Search or a track/playlist/album.").setRequired(true)),
 	execute: async ({ client, interaction }) => {
-        // Make sure the user is inside a voice channel
-		if (!interaction.member.voice.channel) return interaction.reply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> You must join a voice channel to play a track!`).setColor(`Red`)] });
-
         // Defer reply to prevent many command make bot crash
         await interaction.deferReply();
+
+        // Make sure the user is inside a voice channel
+		if (!interaction.member.voice.channel) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> You must join a voice channel to play a track!`).setColor(`Red`)] });
 
 		// Search for the song using the discord-player
         let url_data = interaction.options.getString("url");
@@ -83,11 +83,12 @@ module.exports = {
                 if (!result.hasTracks()) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Sorry, No result was found!`).setColor(`Red`)] })
                 
                 // Play the track to the queue
-                const song = client.player.play(interaction.member.voice.channel.id, result, {
+                const song = await client.player.play(interaction.member.voice.channel.id, result, {
                     nodeOptions: {
                         metadata: {
                             channel: interaction.channel,
                             looped: false,
+                            loopMode: null,
                             client: client,
                             requestedBy: interaction.user,
                             filter: new Set()
@@ -109,11 +110,12 @@ module.exports = {
                 if (!result.hasTracks()) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> No playlist found with **[${playlist.title}](${playlist.url})**`).setColor(`Red`)] })
 
                 // Play and add the playlist to the queue
-                const song = client.player.play(interaction.member.voice.channel.id, result, {
+                const song = await client.player.play(interaction.member.voice.channel.id, result, {
                     nodeOptions: {
                         metadata: {
                             channel: interaction.channel,
                             looped: false,
+                            loopMode: null,
                             client: client,
                             requestedBy: interaction.user,
                             filter: new Set()
