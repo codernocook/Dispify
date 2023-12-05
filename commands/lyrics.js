@@ -5,7 +5,7 @@ const lyricSearcher = require('lyrics-searcher-musixmatch').default;
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("lyrics")
-		.setDescription("The lyric of the current song"),
+		.setDescription("The lyrics of the current song"),
 	execute: async ({ client, interaction }) => {
 		// defer Reply (because lyrics need more time to fetch)
 		await interaction.deferReply();
