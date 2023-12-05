@@ -10,6 +10,9 @@ module.exports = {
             subcommand
                 .setName("on")
                 .setDescription("Set loop mode to true.")
+                .addStringOption(option =>
+                    option.setName("type").setDescription("There are three types: track, queue, autoplay").setRequired(true)
+                )
         )
         .addSubcommand(subcommand =>
             subcommand
@@ -35,9 +38,20 @@ module.exports = {
         
         // Loop
         if (interaction.options.getSubcommand() === "on") {
+            // Check type
+            let typeof_loopMode = interaction.options.getString("type").toLowerCase() || "track";
+            let loopMode_parsed = "track";
+
+            // Support older js version (Traditional method)
+            switch(typeof_loopMode) {
+                case "track": loopMode_parsed = QueueRepeatMode.TRACK; break;
+                case "queue": loopMode_parsed = QueueRepeatMode.QUEUE; break;
+                case "autoplay": loopMode_parsed = QueueRepeatMode.AUTOPLAY; break;
+            }
+            
             if (queue && queue["metadata"] && queue["metadata"]["looped"] === false) {
                 queue["metadata"]["looped"] = true;
-                queue.setRepeatMode(QueueRepeatMode.TRACK);
+                queue.setRepeatMode(typeof_loopMode);
                 interaction.editReply({
                     embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Set the loop mode to \`on\`.`).setColor(`Green`)]
                 });
