@@ -23,6 +23,9 @@ module.exports = {
 		// defer Reply (because ffmpeg take so much time to load)
 		await interaction.deferReply();
 
+		// Make sure the user is inside a voice channel
+		if (!interaction.member.voice.channel) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> You must join a voice channel to do this action.`).setColor(`Red`)] });
+
 		// Get the current queue
 		const queue = client.player.nodes.get(interaction.guildId)
 
@@ -43,12 +46,12 @@ module.exports = {
 					});
 				}).catch(() => {
 					interaction.editReply({
-						embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Cannot set this filter, make sure the **ffmpeg** filter is vaild.\nTheir documentation: https://ffmpeg.org/ffmpeg-filters.html`).setColor(`Red`)]
+						embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Cannot set this filter, make sure the **ffmpeg** filter is vaild.\nDocumentation: https://github.com/codernocook/Dispify/wiki/Filter/`).setColor(`Red`)]
 					});
 				});
 			} catch {
 				await interaction.editReply({
-					embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Cannot set this filter, make sure the **ffmpeg** filter is vaild.\nTheir documentation: https://ffmpeg.org/ffmpeg-filters.html`).setColor(`Red`)]
+					embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> Cannot set this filter, make sure the **ffmpeg** filter is vaild.\nDocumentation: https://github.com/codernocook/Dispify/wiki/Filter/`).setColor(`Red`)]
 				});
 			}
 		} else if (interaction.options.getSubcommand() === "clear") {

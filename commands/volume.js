@@ -9,6 +9,9 @@ module.exports = {
             option.setName("value").setDescription("The value of new volume.").setRequired(true)
         ),
     execute: async ({ client, interaction }) => {
+        // Make sure the user is inside a voice channel
+		if (!interaction.member.voice.channel) return interaction.editReply({ embeds: [new EmbedBuilder().setDescription(`<:DispifyError:1033721529084694598> You must join a voice channel to do this action.`).setColor(`Red`)] });
+        
         const queue = client.player.nodes.get(interaction.guildId)
         const value = interaction.options.getString("value")
 
