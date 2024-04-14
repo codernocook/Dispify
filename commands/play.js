@@ -93,14 +93,14 @@ module.exports = {
                             client: client,
                             requestedBy: interaction.user,
                             filter: new Set(),
-                            leaveOnStop: false,
-                            leaveOnEmpty: true,
-                            leaveOnEmptyCoolDown: 3000000,
-                            leaveOnEnd: true,
-                            leaveOnEndCoolDown: 3000000,
-                            pauseOnEmpty: true,
-                            preferBridgedMetadata: true
                         },
+                        leaveOnStop: false,
+                        leaveOnEmpty: true,
+                        leaveOnEmptyCoolDown: 3000000,
+                        leaveOnEnd: true,
+                        leaveOnEndCoolDown: 3000000,
+                        pauseOnEmpty: true,
+                        preferBridgedMetadata: true,
                         volume: 100
                     }
                 })
@@ -127,14 +127,14 @@ module.exports = {
                             client: client,
                             requestedBy: interaction.user,
                             filter: new Set(),
-                            leaveOnStop: false,
-                            leaveOnEmpty: true,
-                            leaveOnEmptyCoolDown: 3000000,
-                            leaveOnEnd: true,
-                            leaveOnEndCoolDown: 3000000,
-                            pauseOnEmpty: true,
-                            preferBridgedMetadata: true
                         },
+                        leaveOnStop: false,
+                        leaveOnEmpty: true,
+                        leaveOnEmptyCoolDown: 3000000,
+                        leaveOnEnd: true,
+                        leaveOnEndCoolDown: 3000000,
+                        pauseOnEmpty: true,
+                        preferBridgedMetadata: true,
                         volume: 100
                     }
                 })
