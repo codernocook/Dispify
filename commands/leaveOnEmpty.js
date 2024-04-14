@@ -35,24 +35,9 @@ module.exports = {
         
         // Loop
         if (interaction.options.getSubcommand() === "on") {
-            if (queue["metadata"]["leaveOnEmpty"] !== true) {
+            if (queue["leaveOnEmpty"] !== false) {
                 // Set leaveOnEmpty to true
-                queue["metadata"]["leaveOnEmpty"] = true;
-
-                // Send success message
-                interaction.editReply({
-                    embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Bot will remain in channel after all users in the channel quit`).setColor(`Green`)]
-                });
-            } else {
-                // Send success message
-                interaction.editReply({
-                    embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Leave on empty already turned on.`).setColor(`Green`)]
-                });
-            }
-        } else if (interaction.options.getSubcommand() === "off") {
-            if (queue["metadata"]["leaveOnEmpty"] !== false) {
-                // Set leaveOnEmpty to true
-                queue["metadata"]["leaveOnEmpty"] = false;
+                queue["leaveOnEmpty"] = false;
 
                 // Send success message
                 interaction.editReply({
@@ -62,6 +47,21 @@ module.exports = {
                 // Send success message
                 interaction.editReply({
                     embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Leave on empty already turned off.`).setColor(`Green`)]
+                });
+            }
+        } else if (interaction.options.getSubcommand() === "off") {
+            if (queue["leaveOnEmpty"] !== true) {
+                // Set leaveOnEmpty to true
+                queue["leaveOnEmpty"] = true;
+
+                // Send success message
+                interaction.editReply({
+                    embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Bot will remain in channel after all users in the channel quit`).setColor(`Green`)]
+                });
+            } else {
+                // Send success message
+                interaction.editReply({
+                    embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Leave on empty already turned on.`).setColor(`Green`)]
                 });
             }
         }
