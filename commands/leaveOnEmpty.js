@@ -4,7 +4,7 @@ const { QueueRepeatMode } = require('discord-player');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("leaveOnEmpty")
+		.setName("leaveonempty")
 		.setDescription("Make the bot leave/stay in the channel as soon as all users in the channel quit")
         .addSubcommand(subcommand =>
             subcommand
@@ -35,9 +35,9 @@ module.exports = {
         
         // Loop
         if (interaction.options.getSubcommand() === "on") {
-            if (queue["metadata"]["leaveOnEnd"] !== true) {
-                // Set leaveOnEnd to true
-                queue["metadata"]["leaveOnEnd"] = true;
+            if (queue["metadata"]["leaveOnEmpty"] !== true) {
+                // Set leaveOnEmpty to true
+                queue["metadata"]["leaveOnEmpty"] = true;
 
                 // Send success message
                 interaction.editReply({
@@ -50,9 +50,9 @@ module.exports = {
                 });
             }
         } else if (interaction.options.getSubcommand() === "off") {
-            if (queue["metadata"]["leaveOnEnd"] !== false) {
-                // Set leaveOnEnd to true
-                queue["metadata"]["leaveOnEnd"] = false;
+            if (queue["metadata"]["leaveOnEmpty"] !== false) {
+                // Set leaveOnEmpty to true
+                queue["metadata"]["leaveOnEmpty"] = false;
 
                 // Send success message
                 interaction.editReply({
