@@ -35,9 +35,9 @@ module.exports = {
         
         // Loop
         if (interaction.options.getSubcommand() === "on") {
-            if (queue["leaveOnEnd"] !== false) {
+            if (queue["options"]["leaveOnEnd"] !== true) {
                 // Set leaveOnEnd to true
-                queue["leaveOnEnd"] = false;
+                queue["options"]["leaveOnEnd"] = true;
 
                 // Send success message
                 interaction.editReply({
@@ -50,9 +50,9 @@ module.exports = {
                 });
             }
         } else if (interaction.options.getSubcommand() === "off") {
-            if (queue["leaveOnEnd"] !== true) {
-                // Set leaveOnEnd to true
-                queue["leaveOnEnd"] = true;
+            if (queue["options"]["leaveOnEnd"] !== false) {
+                // Set leaveOnEnd to false
+                queue["options"]["leaveOnEnd"] = false;
 
                 // Send success message
                 interaction.editReply({

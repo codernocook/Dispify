@@ -96,9 +96,9 @@ module.exports = {
                         },
                         leaveOnStop: false,
                         leaveOnEmpty: true,
-                        leaveOnEmptyCoolDown: 3000000,
+                        leaveOnEmptyCooldown: 3000000,
                         leaveOnEnd: true,
-                        leaveOnEndCoolDown: 3000000,
+                        leaveOnEndCooldown: 3000000,
                         pauseOnEmpty: true,
                         preferBridgedMetadata: true,
                         volume: 100
@@ -130,9 +130,9 @@ module.exports = {
                         },
                         leaveOnStop: false,
                         leaveOnEmpty: true,
-                        leaveOnEmptyCoolDown: 3000000,
+                        leaveOnEmptyCooldown: 3000000,
                         leaveOnEnd: true,
-                        leaveOnEndCoolDown: 3000000,
+                        leaveOnEndCooldown: 3000000,
                         pauseOnEmpty: true,
                         preferBridgedMetadata: true,
                         volume: 100

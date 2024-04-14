@@ -55,8 +55,8 @@ module.exports = {
                     });
             }
             
-            if (queue && queue["metadata"] && queue["metadata"]["looped"] === false && queue["metadata"]["loopMode"] !== loopMode_parsed) {
-                queue["metadata"]["looped"] = true;
+            if (queue && queue["options"] && queue["options"]["metadata"] && queue["options"]["metadata"]["looped"] === false && queue["options"]["metadata"]["loopMode"] !== loopMode_parsed) {
+                queue["options"]["metadata"]["looped"] = true;
                 queue.setRepeatMode(loopMode_parsed);
                 interaction.editReply({
                     embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Set the loop mode to \`on\`, type: \`${typeof_loopMode}\`.`).setColor(`Green`)]
@@ -67,8 +67,8 @@ module.exports = {
                 });
             }
         } else if (interaction.options.getSubcommand() === "off") {
-            if (queue && queue["metadata"] && queue["metadata"]["looped"] === true && queue["metadata"]["loopMode"] !== loopMode_parsed) {
-                queue["metadata"]["looped"] = false;
+            if (queue && queue["options"] && queue["options"]["metadata"] && queue["options"]["metadata"]["looped"] === true && queue["options"]["metadata"]["loopMode"] !== loopMode_parsed) {
+                queue["options"]["metadata"]["looped"] = false;
                 queue.setRepeatMode(QueueRepeatMode.OFF);
                 interaction.editReply({
                     embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Set the loop mode to \`off\`, type: \`${typeof_loopMode}\`.`).setColor(`Green`)]

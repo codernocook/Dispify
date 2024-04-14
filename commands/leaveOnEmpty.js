@@ -35,9 +35,9 @@ module.exports = {
         
         // Loop
         if (interaction.options.getSubcommand() === "on") {
-            if (queue["leaveOnEmpty"] !== false) {
+            if (queue["options"]["leaveOnEmpty"] !== true) {
                 // Set leaveOnEmpty to true
-                queue["leaveOnEmpty"] = false;
+                queue["options"]["leaveOnEmpty"] = true;
 
                 // Send success message
                 interaction.editReply({
@@ -50,9 +50,9 @@ module.exports = {
                 });
             }
         } else if (interaction.options.getSubcommand() === "off") {
-            if (queue["leaveOnEmpty"] !== true) {
-                // Set leaveOnEmpty to true
-                queue["leaveOnEmpty"] = true;
+            if (queue["options"]["leaveOnEmpty"] !== false) {
+                // Set leaveOnEmpty to false
+                queue["options"]["leaveOnEmpty"] = false;
 
                 // Send success message
                 interaction.editReply({
