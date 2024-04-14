@@ -4,7 +4,7 @@ const { QueueRepeatMode } = require('discord-player');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName("leaveOnEnd")
+		.setName("leaveonend")
 		.setDescription("Make the bot leave/stay in the channel as soon as the queue ends")
         .addSubcommand(subcommand =>
             subcommand
