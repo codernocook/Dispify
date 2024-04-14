@@ -2,6 +2,35 @@ const { SlashCommandBuilder } = require("@discordjs/builders")
 const { EmbedBuilder } = require("discord.js")
 const { QueryType } = require("discord-player")
 
+// Result array
+const resultArr = [
+    {
+        "queryType": QueryType.SPOTIFY_PLAYLIST,
+        "streamingPlatform": "spotify",
+        "type": "playlist",
+    },
+    {
+        "queryType": QueryType.SPOTIFY_ALBUM,
+        "streamingPlatform": "spotify",
+        "type": "playlist",
+    },
+    {
+        "queryType": QueryType.YOUTUBE_PLAYLIST,
+        "streamingPlatform": "youtube",
+        "type": "playlist",
+    },
+    {
+        "queryType": QueryType.SOUNDCLOUD_PLAYLIST,
+        "streamingPlatform": "soundcloud",
+        "type": "playlist",
+    },
+    {
+        "queryType": QueryType.AUTO,
+        "streamingPlatform": "track",
+        "type": "track",
+    }
+]
+
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("play")
@@ -16,58 +45,30 @@ module.exports = {
 
 		// Search for the song using the discord-player
         let url_data = interaction.options.getString("url");
-        // Check if the song request is a playlist using try {} catch {} method
-        try {
-            try {
-                const result = await client.player.search(url_data, {
-                    requestedBy: interaction.user,
-                    searchEngine: QueryType.SPOTIFY_PLAYLIST
-                })
+
+        // Get the songs on the Spotify, Youtube, Soundcloud by checking
+        for (let checking_index = 0; checking_index < 5; checking_index++) {
+            const result = await client.player.search(url_data, {
+                requestedBy: interaction.user,
+                searchEngine: ((resultArr[checking_index]["queryType"] || "spotify") || QueryType.AUTO)
+            })
+
+            // Make sure the checking index is not the type "AUTO"
+            if (checking_index !== 4) {
                 if (result["playlist"]) {
-                    playSong(url_data, result, "playlist", "spotify");
-                } else {
-                    throw ""; // this trigger catch method
+                    // Send request
+                    playSong(url_data, result, (resultArr[checking_index]["type"] || "playlist"), (resultArr[checking_index]["streamingPlatform"] || "spotify"));
+
+                    // Break the loop
+                    break;
                 }
-            } catch {
-                const result = await client.player.search(url_data, {
-                    requestedBy: interaction.user,
-                    searchEngine: QueryType.SPOTIFY_ALBUM
-                })
-                if (result["playlist"]) {
-                    playSong(url_data, result, "playlist", "spotify");
-                } else {
-                    throw ""; // this trigger catch method
-                }
-            }
-        } catch {
-            try {
-                const result = await client.player.search(url_data, {
-                    requestedBy: interaction.user,
-                    searchEngine: QueryType.YOUTUBE_PLAYLIST
-                })
-                if (result["playlist"]) {
-                    playSong(url_data, result, "playlist", "youtube");
-                } else {
-                    throw ""; // this trigger catch method
-                }
-            } catch {
-                try {
-                    const result = await client.player.search(url_data, {
-                        requestedBy: interaction.user,
-                        searchEngine: QueryType.SOUNDCLOUD_PLAYLIST
-                    })
-                    if (result["playlist"]) {
-                        playSong(url_data, result, "playlist", "soundcloud");
-                    } else {
-                        throw ""; // this trigger catch method
-                    }
-                } catch {
-                    const result = await client.player.search(url_data, {
-                        requestedBy: interaction.user,
-                        searchEngine: QueryType.AUTO
-                    })
-                    playSong(url_data, result, "track", "track");
-                }
+            } else {
+                // "AUTO" type, for searching
+                // Send request
+                playSong(url_data, result, (resultArr[checking_index]["type"] || "playlist"), (resultArr[checking_index]["streamingPlatform"] || "spotify"));
+
+                // Break the loop
+                break;
             }
         }
 
@@ -91,7 +92,14 @@ module.exports = {
                             loopMode: null,
                             client: client,
                             requestedBy: interaction.user,
-                            filter: new Set()
+                            filter: new Set(),
+                            leaveOnStop: false,
+                            leaveOnEmpty: true,
+                            leaveOnEmptyCoolDown: 3000000,
+                            leaveOnEnd: true,
+                            leaveOnEndCoolDown: 3000000,
+                            pauseOnEmpty: true,
+                            preferBridgedMetadata: true
                         },
                         volume: 100
                     }
@@ -118,7 +126,14 @@ module.exports = {
                             loopMode: null,
                             client: client,
                             requestedBy: interaction.user,
-                            filter: new Set()
+                            filter: new Set(),
+                            leaveOnStop: false,
+                            leaveOnEmpty: true,
+                            leaveOnEmptyCoolDown: 3000000,
+                            leaveOnEnd: true,
+                            leaveOnEndCoolDown: 3000000,
+                            pauseOnEmpty: true,
+                            preferBridgedMetadata: true
                         },
                         volume: 100
                     }
