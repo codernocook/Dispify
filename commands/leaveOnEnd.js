@@ -35,24 +35,9 @@ module.exports = {
         
         // Loop
         if (interaction.options.getSubcommand() === "on") {
-            if (queue["metadata"]["leaveOnEnd"] !== true) {
+            if (queue["leaveOnEnd"] !== false) {
                 // Set leaveOnEnd to true
-                queue["metadata"]["leaveOnEnd"] = true;
-
-                // Send success message
-                interaction.editReply({
-                    embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Bot will remain in channel after queue completion.`).setColor(`Green`)]
-                });
-            } else {
-                // Send success message
-                interaction.editReply({
-                    embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Leave on end already turned on.`).setColor(`Green`)]
-                });
-            }
-        } else if (interaction.options.getSubcommand() === "off") {
-            if (queue["metadata"]["leaveOnEnd"] !== false) {
-                // Set leaveOnEnd to true
-                queue["metadata"]["leaveOnEnd"] = false;
+                queue["leaveOnEnd"] = false;
 
                 // Send success message
                 interaction.editReply({
@@ -62,6 +47,21 @@ module.exports = {
                 // Send success message
                 interaction.editReply({
                     embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Leave on end already turned off.`).setColor(`Green`)]
+                });
+            }
+        } else if (interaction.options.getSubcommand() === "off") {
+            if (queue["leaveOnEnd"] !== true) {
+                // Set leaveOnEnd to true
+                queue["leaveOnEnd"] = true;
+
+                // Send success message
+                interaction.editReply({
+                    embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Bot will remain in channel after queue completion.`).setColor(`Green`)]
+                });
+            } else {
+                // Send success message
+                interaction.editReply({
+                    embeds: [new EmbedBuilder().setDescription(`<:DispifySuccess:1033721502874484746> Leave on end already turned on.`).setColor(`Green`)]
                 });
             }
         }
