@@ -5,7 +5,7 @@ const { QueueRepeatMode } = require('discord-player');
 module.exports = {
 	data: new SlashCommandBuilder()
 		.setName("clear")
-		.setDescription("Clear all tracks in current queue")
+		.setDescription("Clear all tracks in current queue"),
 	execute: async ({ client, interaction }) => {
         // Defer reply to prevent many command make bot crash
         await interaction.deferReply();
