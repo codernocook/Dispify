@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { EmbedBuilder } = require("discord.js");
 const Genius = require("genius-lyrics");
-const Client = new Genius.Client();
+const Client = new Genius.Client(process.env["GENIUS_TOKEN"] || undefined);
 const maxLength = 1996;
 
 module.exports = {
