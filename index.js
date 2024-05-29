@@ -1,6 +1,7 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const { Client, Collection, GatewayIntentBits, EmbedBuilder, ActivityType } = require('discord.js');
+const Genius = require("genius-lyrics");
 
 // FFmpeg path
 process.env.FFMPEG_PATH = require("ffmpeg-static");
@@ -11,6 +12,7 @@ const { Player } = require("discord-player");
 require('dotenv').config({path: "./settings.env"});
 const token = process.env.TOKEN
 const CLIENT_ID = process.env.CLIENT_ID
+const geniusClient = new Genius.Client(process.env["GENIUS_TOKEN"]?.toString() || undefined);
 
 const fs = require('fs');
 const path = require('path');
@@ -18,6 +20,9 @@ const { resolve } = require('path');
 const rest = new REST({version: '10'}).setToken(token);
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildVoiceStates]});
+
+// Register genius client
+client["geniusClient"] = geniusClient;
 
 // List of all commands
 const commands = [];

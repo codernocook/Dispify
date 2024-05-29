@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { EmbedBuilder } = require("discord.js");
-const Genius = require("genius-lyrics");
-const Client = new Genius.Client(process.env["GENIUS_TOKEN"] || undefined);
 const maxLength = 1996;
 
 module.exports = {
@@ -24,7 +22,7 @@ module.exports = {
 		const currentSong = queue.currentTrack;
 
 		// Getting searches
-		const songSearches = await Client.songs.search(`${currentSong["author"]} - ${currentSong.title}`);
+		const songSearches = await client.geniusClient.search(`${currentSong["author"]} - ${currentSong["title"]}`);
 
 		// Getting first song
 		const firstSong = songSearches[0];
